@@ -33,6 +33,7 @@ export async function fetchTweetEmbed(
     const match = json.html.match(CONTENT_REGEX);
     if (!match) return null;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const tweetContent = sanitizeHtmlText(match[0]?.replace(/<blockquote[^>]*>|<\/blockquote>/g, ""));
     const contentMatches = Array.from(json.html.matchAll(CONTENT_REGEX));
     if (contentMatches.length === 0) return null;
