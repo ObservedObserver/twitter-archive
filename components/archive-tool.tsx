@@ -7,21 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { HtmlTabDisplay } from "@/components/tabs/html-tab-display";
+import { CsvTabDisplay } from "@/components/tabs/csv-tab-display";
+import { JsonTabDisplay } from "@/components/tabs/json-tab-display";
 
-type TweetRecord = Record<string, string | boolean | null>;
 
-type FrameSourceKey =
-  | "archived_tweet_url"
-  | "parsed_archived_tweet_url"
-  | "original_tweet_url"
-  | "parsed_tweet_url";
-
-const FRAME_SOURCES: Array<{ key: FrameSourceKey; label: string }> = [
-  { key: "archived_tweet_url", label: "Archived Tweet" },
-  { key: "parsed_archived_tweet_url", label: "Parsed Archived Tweet" },
-  { key: "original_tweet_url", label: "Original Tweet" },
-  { key: "parsed_tweet_url", label: "Parsed Tweet" },
-];
 
 const FIELD_LABELS: Record<string, string> = {
   parsed_archived_timestamp: "Archived (parsed)",
@@ -78,102 +68,6 @@ const sixMonthsAgo = () => {
   return getDateInputValue(date);
 };
 
-function TweetPreviewList({ tweets, maxItems = 10 }: { tweets: TweetRecord[]; maxItems?: number }) {
-  const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
-
-  const limitedTweets = useMemo(() => tweets.slice(0, maxItems), [tweets, maxItems]);
-
-  const handleToggle = (id: string, isOpen: boolean) => {
-    setOpenSections((prev) => ({ ...prev, [id]: isOpen }));
-  };
-
-  if (limitedTweets.length === 0) {
-    return (
-      <p className="text-sm text-muted-foreground">No preview available for this query.</p>
-    );
-  }
-
-  return (
-    <div className="flex flex-col gap-4">
-      {limitedTweets.map((tweet, index) => {
-        const availableText = typeof tweet.available_tweet_text === "string" ? tweet.available_tweet_text : null;
-        const availableInfo = typeof tweet.available_tweet_info === "string" ? tweet.available_tweet_info : null;
-        const timestamp =
-          typeof tweet.parsed_archived_timestamp === "string"
-            ? tweet.parsed_archived_timestamp
-            : typeof tweet.archived_timestamp === "string"
-              ? tweet.archived_timestamp
-              : null;
-        const cardKey = String(tweet.archived_urlkey ?? `${index}`);
-
-        return (
-          <article
-            key={cardKey}
-            className="rounded-xl border bg-background p-4 shadow-sm"
-          >
-            <div className="flex flex-col gap-3 text-sm">
-              <div className="flex flex-col gap-1">
-                <p className="text-base font-medium">Capture #{index + 1}</p>
-                {timestamp ? (
-                  <p className="text-xs text-muted-foreground">Archived: {timestamp}</p>
-                ) : null}
-              </div>
-
-              {availableText ? (
-                <div className="rounded-lg border bg-muted/40 p-3">
-                  <p className="text-sm font-medium">Available Tweet Content</p>
-                  <p className="mt-1 whitespace-pre-wrap text-sm">{availableText}</p>
-                  {availableInfo ? (
-                    <p className="mt-2 text-xs text-muted-foreground">{availableInfo}</p>
-                  ) : null}
-                </div>
-              ) : null}
-
-              <div className="flex flex-wrap gap-2 text-xs">
-                {FRAME_SOURCES.map((source) => {
-                  const url = tweet[source.key];
-                  const parsedUrl = typeof url === "string" ? url : null;
-                  if (!parsedUrl) {
-                    return null;
-                  }
-                  const sectionId = `${index}-${source.key}`;
-                  const isOpen = openSections[sectionId] ?? false;
-
-                  return (
-                    <details
-                      key={sectionId}
-                      className="w-full overflow-hidden rounded-lg border bg-background"
-                      onToggle={(event) => handleToggle(sectionId, event.currentTarget.open)}
-                    >
-                      <summary className="cursor-pointer px-3 py-2 text-sm font-medium">
-                        Click to load the iframe from {source.label}
-                      </summary>
-                      <div className="px-3 pb-3">
-                        {isOpen ? (
-                          <iframe
-                            key={`${sectionId}-iframe`}
-                            src={parsedUrl}
-                            title={`${source.label} - ${sectionId}`}
-                            className="mt-2 h-[480px] w-full rounded-md border bg-white"
-                            sandbox="allow-scripts allow-same-origin allow-popups"
-                          />
-                        ) : (
-                          <p className="mt-2 text-xs text-muted-foreground">
-                            Open this section to load the archived iframe.
-                          </p>
-                        )}
-                      </div>
-                    </details>
-                  );
-                })}
-              </div>
-            </div>
-          </article>
-        );
-      })}
-    </div>
-  );
-}
 
 const formatDisplayValue = (key: string, value: string | boolean | null | undefined): ReactNode => {
   if (value === null || value === undefined || value === "") {
@@ -392,13 +286,13 @@ export default function ArchiveTool() {
         </form>
       </Card>
 
-      {error ? (
+      {error && (
         <div className="rounded-lg border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive">
           {error}
         </div>
-      ) : null}
+      )}
 
-      {response ? (
+      {response && (
         <section className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <h2 className="text-2xl font-semibold">Results for @{response.meta.username}</h2>
@@ -453,70 +347,31 @@ export default function ArchiveTool() {
           </div>
 
           <div className="rounded-xl border bg-card p-4 shadow-sm">
-            {activeTab === "HTML" ? (
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-wrap items-center gap-3">
-                  <Button type="button" onClick={() => handleDownload("html")}>
-                    Download HTML
-                  </Button>
-                  <span className="text-sm text-muted-foreground">Note: The iframes are best viewed in Firefox.</span>
-                </div>
-                <iframe
-                  title="HTML preview"
-                  srcDoc={response.exports.html}
-                  className="h-[480px] w-full rounded-lg border"
-                />
-                <TweetPreviewList tweets={response.data} />
-              </div>
-            ) : null}
+            {activeTab === "HTML" && (
+              <HtmlTabDisplay
+                htmlContent={response.exports.html}
+                tweets={response.data}
+                onDownload={() => handleDownload("html")}
+              />
+            )}
 
-            {activeTab === "CSV" ? (
-              <div className="flex flex-col gap-4">
-                <Button type="button" onClick={() => handleDownload("csv")}>
-                  Download CSV
-                </Button>
-                <span className="text-sm text-muted-foreground">Preview:</span>
-                <div className="max-h-[360px] overflow-auto rounded-lg border">
-                  <table className="min-w-full divide-y divide-border text-sm">
-                    <thead className="bg-muted/40">
-                      <tr>
-                        {previewColumns.map((column) => (
-                          <th key={column} className="px-3 py-2 text-left font-semibold text-muted-foreground">
-                            {column}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border bg-background">
-                      {displayedRows.map((row, rowIndex) => (
-                        <tr key={`preview-row-${rowIndex}`}>
-                          {previewColumns.map((column) => (
-                            <td key={`${rowIndex}-${column}`} className="whitespace-pre-wrap px-3 py-2 align-top text-xs">
-                              {row[column] ?? ""}
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            ) : null}
+            {activeTab === "CSV" && (
+              <CsvTabDisplay
+                displayedRows={displayedRows}
+                previewColumns={previewColumns}
+                onDownload={() => handleDownload("csv")}
+              />
+            )}
 
-            {activeTab === "JSON" ? (
-              <div className="flex flex-col gap-4">
-                <Button type="button" onClick={() => handleDownload("json")}>
-                  Download JSON
-                </Button>
-                <span className="text-sm text-muted-foreground">Preview:</span>
-                <pre className="max-h-[360px] overflow-auto rounded-lg border bg-background p-4 text-xs">
-                  {jsonPreview}
-                </pre>
-              </div>
-            ) : null}
+            {activeTab === "JSON" && jsonPreview && (
+              <JsonTabDisplay
+                jsonPreview={jsonPreview}
+                onDownload={() => handleDownload("json")}
+              />
+            )}
           </div>
         </section>
-      ) : null}
+      )}
     </>
   );
 }
