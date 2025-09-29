@@ -5,6 +5,35 @@ const TWITTER_OEMBED = "https://publish.twitter.com/oembed";
 const CONTENT_REGEX = /<blockquote class="twitter-tweet"(?: [^>]+)?><p[^>]*>(.*?)<\/p>.*?&mdash; (.*?)<\/a>/s;
 const AUTHOR_REGEX = /^(.*?)\s*\(.*$/s;
 
+export async function fetchTweetEmbedHtml(
+  tweetUrl: string
+): Promise<string | null> {
+  const params = new URLSearchParams({ url: tweetUrl });
+
+  try {
+    const response = await fetch(`${TWITTER_OEMBED}?${params.toString()}`, {
+      headers: {
+        "User-Agent": DEFAULT_USER_AGENT,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const json = (await response.json()) as {
+      html?: string;
+      author_name?: string;
+    };
+
+    return json.html || null;
+  } catch {
+    return null;
+  }
+}
+
 export async function fetchTweetEmbed(
   tweetUrl: string
 ): Promise<EmbedResult | null> {

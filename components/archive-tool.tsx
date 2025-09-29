@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { HtmlTabDisplay } from "@/components/tabs/html-tab-display";
 import { CsvTabDisplay } from "@/components/tabs/csv-tab-display";
 import { JsonTabDisplay } from "@/components/tabs/json-tab-display";
+import { PreviewTabDisplay } from "@/components/tabs/preview-tab-display";
 
 
 
@@ -31,7 +32,7 @@ const DISPLAY_COLUMNS = [
   "archived_statuscode",
 ] as const;
 
-type TabKey = "HTML" | "CSV" | "JSON";
+type TabKey = "HTML" | "CSV" | "JSON" | "Preview";
 
 type ApiResponse = {
   data: Array<Record<string, string | boolean | null>>;
@@ -58,7 +59,7 @@ type FormState = {
   unique: boolean;
 };
 
-const TABS: TabKey[] = ["HTML", "CSV", "JSON"];
+const TABS: TabKey[] = ["Preview", "HTML", "CSV", "JSON"];
 
 const getDateInputValue = (date: Date) => date.toISOString().slice(0, 10);
 
@@ -151,7 +152,7 @@ export default function ArchiveTool() {
 
       const payload = (await res.json()) as ApiResponse;
       setResponse(payload);
-      setActiveTab("HTML");
+      setActiveTab("Preview");
     } catch (err) {
       const message = err instanceof Error ? err.message : "Unexpected error.";
       setError(message);
@@ -347,6 +348,13 @@ export default function ArchiveTool() {
           </div>
 
           <div className="rounded-xl border bg-card p-4 shadow-sm">
+            {activeTab === "Preview" && (
+              <PreviewTabDisplay
+                tweets={response.data}
+                onDownload={() => handleDownload("html")}
+              />
+            )}
+
             {activeTab === "HTML" && (
               <HtmlTabDisplay
                 htmlContent={response.exports.html}
