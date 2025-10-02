@@ -1,4 +1,4 @@
-import type { FieldOption } from "./constants";
+import type { FieldOption, InstagramFieldOption } from "./constants";
 
 export interface ArchiveQueryOptions {
   username: string;
@@ -32,6 +32,16 @@ export type ParsedTweet = Partial<Record<FieldOption, string | boolean | null>>;
 
 export interface ParsedTweetsResult {
   tweets: ParsedTweet[];
+  total: number;
+  username: string;
+  showResumeKey: boolean;
+  resumptionKey?: string | null;
+}
+
+export type ParsedInstagramPost = Partial<Record<InstagramFieldOption, string | boolean | null>>;
+
+export interface ParsedInstagramPostsResult {
+  tweets: ParsedInstagramPost[];
   total: number;
   username: string;
   showResumeKey: boolean;

@@ -71,16 +71,16 @@ export default function Home() {
 
       <ArchiveTool />
 
-      <section className="space-y-6">
-        <h2 className="text-2xl font-semibold text-center">Twitter Archive FAQ</h2>
-        <dl className="space-y-4">
-          {faqEntries.map((entry) => (
-            <div key={entry.question} className="rounded-lg border p-4">
-              <dt className="text-lg font-medium">{entry.question}</dt>
-              <dd className="mt-2 text-sm text-muted-foreground">{entry.answer}</dd>
-            </div>
+      <section className="space-y-6" aria-labelledby="faq-heading">
+        <h2 id="faq-heading" className="text-2xl font-semibold text-center">Twitter Archive FAQ</h2>
+        <div className="space-y-4">
+          {faqEntries.map((entry, index) => (
+            <article key={entry.question} className="rounded-lg border p-4">
+              <h3 className="text-lg font-medium">{entry.question}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{entry.answer}</p>
+            </article>
           ))}
-        </dl>
+        </div>
       </section>
 
       <Script
