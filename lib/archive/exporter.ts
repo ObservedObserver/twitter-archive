@@ -1,11 +1,24 @@
-import { FIELD_OPTIONS, type FieldOption } from "./constants";
+import { FIELD_OPTIONS, type FieldOption, type InstagramFieldOption } from "./constants";
 import { buildTweetsHtml } from "./html";
-import type { ExportBundle, ParsedTweet, ParsedTweetsResult } from "./types";
+import type { ExportBundle, InstagramExportBundle, ParsedInstagramPost, ParsedInstagramPostsResult, ParsedTweet, ParsedTweetsResult } from "./types";
 
+// Overload for Twitter
 export function buildExportBundle(
   result: ParsedTweetsResult,
-  fieldOptions: readonly FieldOption[] = FIELD_OPTIONS
-): ExportBundle {
+  fieldOptions?: readonly FieldOption[]
+): ExportBundle;
+
+// Overload for Instagram
+export function buildExportBundle(
+  result: ParsedInstagramPostsResult,
+  fieldOptions: readonly InstagramFieldOption[]
+): InstagramExportBundle;
+
+// Implementation
+export function buildExportBundle(
+  result: ParsedTweetsResult | ParsedInstagramPostsResult,
+  fieldOptions: readonly FieldOption[] | readonly InstagramFieldOption[] = FIELD_OPTIONS
+): ExportBundle | InstagramExportBundle {
   const columns = Array.from(new Set(fieldOptions));
   const normalizedTweets = normalizeTweets(result.tweets, columns);
 
@@ -25,37 +38,37 @@ export function buildExportBundle(
 }
 
 function normalizeTweets(
-  tweets: ParsedTweet[],
-  columns: readonly FieldOption[]
-): ParsedTweet[] {
+  tweets: (ParsedTweet | ParsedInstagramPost)[],
+  columns: readonly (FieldOption | InstagramFieldOption)[]
+): (ParsedTweet | ParsedInstagramPost)[] {
   return tweets.map((tweet) => {
-    const normalized: ParsedTweet = {};
+    const normalized: Record<string, string | boolean | null> = {};
     columns.forEach((column) => {
       if (column in tweet) {
-        normalized[column] = tweet[column];
+        normalized[column] = (tweet as Record<string, string | boolean | null>)[column];
       } else {
         normalized[column] = null;
       }
     });
-    return normalized;
+    return normalized as ParsedTweet | ParsedInstagramPost;
   });
 }
 
 function buildCsv(
-  tweets: ParsedTweet[],
-  columns: readonly FieldOption[]
+  tweets: (ParsedTweet | ParsedInstagramPost)[],
+  columns: readonly (FieldOption | InstagramFieldOption)[]
 ): string {
   const header = columns.join(",");
   const rows = tweets.map((tweet) =>
     columns
-      .map((column) => formatCsvCell(tweet[column]))
+      .map((column) => formatCsvCell((tweet as Record<string, string | boolean | null>)[column]))
       .join(",")
   );
 
   return [header, ...rows].join("\n");
 }
 
-function formatCsvCell(value: ParsedTweet[FieldOption]): string {
+function formatCsvCell(value: string | boolean | null | undefined): string {
   if (value === null || value === undefined) return "";
   const stringValue = String(value);
   if (stringValue.includes("\n") || stringValue.includes(",") || stringValue.includes('"')) {

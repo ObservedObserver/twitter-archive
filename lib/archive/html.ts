@@ -1,4 +1,4 @@
-import type { ParsedTweet } from "./types";
+import type { ParsedInstagramPost, ParsedTweet } from "./types";
 import { timestampParser } from "./utils";
 
 const FIELD_LABELS: Record<string, string> = {
@@ -12,6 +12,10 @@ const FIELD_LABELS: Record<string, string> = {
   available_tweet_text: "Available Tweet Text",
   available_tweet_is_RT: "Available Tweet Is Retweet",
   available_tweet_info: "Available Tweet Info",
+  archived_post_url: "Archived Post URL",
+  parsed_archived_post_url: "Parsed Archived Post URL",
+  original_post_url: "Original Post URL",
+  parsed_post_url: "Parsed Post URL",
   archived_mimetype: "Archived MIME Type",
   archived_statuscode: "Archived Status Code",
   archived_digest: "Archived Digest",
@@ -37,7 +41,7 @@ const FIELD_ORDER = [
   "resumption_key",
 ] as const;
 
-export function buildTweetsHtml(username: string, tweets: ParsedTweet[]): string {
+export function buildTweetsHtml(username: string, tweets: (ParsedTweet | ParsedInstagramPost)[]): string {
   const summary = `Total captures: ${tweets.length}`;
 
   const cards = tweets
@@ -167,11 +171,12 @@ export function buildTweetsHtml(username: string, tweets: ParsedTweet[]): string
 </html>`;
 }
 
-function renderTweetCard(tweet: ParsedTweet, index: number): string {
-  const rows = FIELD_ORDER.filter((field) => tweet[field] !== undefined).map((field) => {
-    let value = tweet[field];
-    if (field === "parsed_archived_timestamp" && !value && tweet.archived_timestamp) {
-      value = timestampParser(String(tweet.archived_timestamp));
+function renderTweetCard(tweet: ParsedTweet | ParsedInstagramPost, index: number): string {
+  const tweetRecord = tweet as Record<string, string | boolean | null>;
+  const rows = FIELD_ORDER.filter((field) => tweetRecord[field] !== undefined).map((field) => {
+    let value = tweetRecord[field];
+    if (field === "parsed_archived_timestamp" && !value && tweetRecord.archived_timestamp) {
+      value = timestampParser(String(tweetRecord.archived_timestamp));
     }
 
     const label = FIELD_LABELS[field] ?? field;

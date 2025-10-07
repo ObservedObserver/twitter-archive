@@ -55,6 +55,13 @@ export interface ExportBundle extends ParsedTweetsResult {
   filename: string;
 }
 
+export interface InstagramExportBundle extends ParsedInstagramPostsResult {
+  csv: string;
+  json: string;
+  html: string;
+  filename: string;
+}
+
 export interface EmbedResult {
   text: string | null;
   isRetweet: boolean | null;

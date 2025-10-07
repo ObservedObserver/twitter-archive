@@ -79,7 +79,7 @@ export default function InstagramArchivePage() {
       <section className="space-y-6" aria-labelledby="faq-heading">
         <h2 id="faq-heading" className="text-2xl font-semibold text-center">Instagram Archive FAQ</h2>
         <div className="space-y-4">
-          {faqEntries.map((entry, index) => (
+          {faqEntries.map((entry) => (
             <article key={entry.question} className="rounded-lg border p-4">
               <h3 className="text-lg font-medium">{entry.question}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{entry.answer}</p>
