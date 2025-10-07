@@ -63,7 +63,7 @@ export default function InstagramArchivePage() {
   return (
     <main className="font-sans mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-10 px-4 py-10">
       <div className="flex flex-col gap-2 text-center">
-        <h1 className="text-3xl font-semibold">Instagram Archive Snapshot Explorer</h1>
+        <h1 className="text-3xl font-semibold">Instagram Archive</h1>
         <p className="text-muted-foreground">
           Discover, preview, and export Instagram archive snapshots from Xarchive.net in
           seconds.
