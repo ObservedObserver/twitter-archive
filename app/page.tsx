@@ -3,7 +3,7 @@ import Script from "next/script";
 
 import ArchiveTool from "@/components/archive-tool";
 
-const pageTitle = "Twitter Archive Snapshot Explorer | Xarchive";
+const pageTitle = "Twitter Archive Free Online Tool | Xarchive";
 const pageDescription =
   "Explore the Twitter archive with Xarchive.net. Search, preview, and download Wayback Machine tweet snapshots in seconds.";
 

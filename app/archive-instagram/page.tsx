@@ -3,7 +3,7 @@ import Script from "next/script";
 
 import ArchiveInstagramTool from "@/components/archive-instagram-tool";
 
-const pageTitle = "Instagram Archive Snapshot Explorer | Xarchive";
+const pageTitle = "Instagram Archive Free Online Tool | Xarchive";
 const pageDescription =
   "Explore the Instagram archive with Xarchive.net. Search, preview, and download Wayback Machine Instagram snapshots in seconds.";
 
