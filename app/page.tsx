@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import Link from "next/link";
 
 import ArchiveTool from "@/components/archive-tool";
 
-const pageTitle = "Twitter Archive Free Online Tool | Xarchive";
+const pageTitle = "Free Twitter Archive Viewer & Downloader | Xarchive";
 const pageDescription =
-  "Explore the Twitter archive with Xarchive.net. Search, preview, and download Wayback Machine tweet snapshots in seconds.";
+  "Explore and download Twitter archive snapshots instantly. Xarchive lets you search, preview, and export Twitter data saved on the Wayback Machine in HTML, CSV, or JSON formats.";
 
 const faqEntries = [
   {
@@ -58,7 +59,7 @@ export default function Home() {
   return (
     <main className="font-sans mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-10 px-4 py-10">
       <div className="flex flex-col gap-2 text-center">
-        <h1 className="text-3xl font-semibold">Twitter Archive</h1>
+        <h1 className="text-3xl font-semibold">Twitter Archive Explorer – View and Export Saved Tweets</h1>
         <p className="text-muted-foreground">
           Discover, preview, and export Twitter archive snapshots from Xarchive.net in
           seconds.
@@ -71,8 +72,28 @@ export default function Home() {
 
       <ArchiveTool />
 
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold">How to Search Twitter Archives</h2>
+        <p className="text-muted-foreground">
+          Searching through Twitter archive data is simple with Xarchive. Enter any tweet URL or Twitter profile link in the search box above, and our tool will scan the Wayback Machine for all available snapshots. You can filter results by date range to find specific Twitter archive entries from any time period, making it easy to recover historical tweets and conversations.
+        </p>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold">Download Twitter Archive Snapshots</h2>
+        <p className="text-muted-foreground">
+          Once you&apos;ve found the Twitter archive snapshots you need, Xarchive allows you to download them in multiple formats. Export your Twitter archive data as HTML for easy viewing, CSV for spreadsheet analysis, or JSON for developers and researchers. All Twitter archive downloads include timestamps, URLs, and complete snapshot metadata from the Internet Archive.
+        </p>
+      </section>
+
+      <section className="space-y-4">
+        <p className="text-sm text-muted-foreground">
+          Try our <Link href="/" className="text-primary hover:underline">Twitter Archive tool</Link> or explore the <Link href="/archive-instagram" className="text-primary hover:underline">Instagram Archive version</Link>.
+        </p>
+      </section>
+
       <section className="space-y-6" aria-labelledby="faq-heading">
-        <h2 id="faq-heading" className="text-2xl font-semibold text-center">Twitter Archive FAQ</h2>
+        <h2 id="faq-heading" className="text-2xl font-semibold text-center">Wayback Machine Twitter Archive FAQ</h2>
         <div className="space-y-4">
           {faqEntries.map((entry) => (
             <article key={entry.question} className="rounded-lg border p-4">

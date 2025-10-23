@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import Link from "next/link";
 
 import ArchiveInstagramTool from "@/components/archive-instagram-tool";
 
-const pageTitle = "Instagram Archive Free Online Tool | Xarchive";
+const pageTitle = "Free Instagram Archive Viewer & Downloader | Xarchive";
 const pageDescription =
-  "Explore the Instagram archive with Xarchive.net. Search, preview, and download Wayback Machine Instagram snapshots in seconds.";
+  "Explore and download Instagram archive snapshots instantly. Xarchive lets you search, preview, and export Instagram data saved on the Wayback Machine in HTML, CSV, or JSON formats.";
 
 const faqEntries = [
   {
@@ -63,7 +64,7 @@ export default function InstagramArchivePage() {
   return (
     <main className="font-sans mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-10 px-4 py-10">
       <div className="flex flex-col gap-2 text-center">
-        <h1 className="text-3xl font-semibold">Instagram Archive</h1>
+        <h1 className="text-3xl font-semibold">Instagram Archive Explorer – View and Export Saved Posts</h1>
         <p className="text-muted-foreground">
           Discover, preview, and export Instagram archive snapshots from Xarchive.net in
           seconds.
@@ -76,8 +77,28 @@ export default function InstagramArchivePage() {
 
       <ArchiveInstagramTool />
 
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold">How to Search Instagram Archives</h2>
+        <p className="text-muted-foreground">
+          Searching through Instagram archive data is simple with Xarchive. Enter any Instagram username in the search box above, and our tool will scan the Wayback Machine for all available snapshots. You can filter results by date range to find specific Instagram archive entries from any time period, making it easy to recover historical posts, stories, and profiles.
+        </p>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold">Download Instagram Archive Snapshots</h2>
+        <p className="text-muted-foreground">
+          Once you&apos;ve found the Instagram archive snapshots you need, Xarchive allows you to download them in multiple formats. Export your Instagram archive data as HTML for easy viewing, CSV for spreadsheet analysis, or JSON for developers and researchers. All Instagram archive downloads include timestamps, URLs, and complete snapshot metadata from the Internet Archive.
+        </p>
+      </section>
+
+      <section className="space-y-4">
+        <p className="text-sm text-muted-foreground">
+          Try our <Link href="/archive-instagram" className="text-primary hover:underline">Instagram Archive tool</Link> or explore the <Link href="/" className="text-primary hover:underline">Twitter Archive version</Link>.
+        </p>
+      </section>
+
       <section className="space-y-6" aria-labelledby="faq-heading">
-        <h2 id="faq-heading" className="text-2xl font-semibold text-center">Instagram Archive FAQ</h2>
+        <h2 id="faq-heading" className="text-2xl font-semibold text-center">Wayback Machine Instagram Archive FAQ</h2>
         <div className="space-y-4">
           {faqEntries.map((entry) => (
             <article key={entry.question} className="rounded-lg border p-4">
