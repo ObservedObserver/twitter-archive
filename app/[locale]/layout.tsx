@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SiteHeader } from "@/components/site-header";
-import { locales } from "@/i18n";
+import { locales, type Locale } from "@/i18n";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -27,13 +27,18 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
+function isValidLocale(locale: string): locale is Locale {
+  const validLocales: readonly string[] = locales;
+  return validLocales.includes(locale);
+}
+
 export default async function LocaleLayout({
   children,
   params,
 }: Props) {
   const { locale } = await params;
 
-  if (!locales.includes(locale as any)) {
+  if (!isValidLocale(locale)) {
     notFound();
   }
 
