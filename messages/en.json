@@ -1,0 +1,139 @@
+{
+  "common": {
+    "siteName": "Xarchive"
+  },
+  "nav": {
+    "twitterArchive": "Twitter Archive",
+    "instagramArchive": "Instagram Archive"
+  },
+  "twitter": {
+    "pageTitle": "Free Twitter Archive Viewer & Downloader | Xarchive",
+    "pageDescription": "Explore and download Twitter archive snapshots instantly. Xarchive lets you search, preview, and export Twitter data saved on the Wayback Machine in HTML, CSV, or JSON formats.",
+    "hero": {
+      "title": "Twitter Archive Explorer – View and Export Saved Tweets",
+      "subtitle": "Discover, preview, and export Twitter archive snapshots from Xarchive.net in seconds.",
+      "description": "Search Wayback Machine CDX data for tweets and download results in HTML, CSV, and JSON."
+    },
+    "form": {
+      "title": "Search Filters",
+      "description": "Provide a Twitter username and optional filters to query the Internet Archive CDX API.",
+      "username": "Username",
+      "usernamePlaceholder": "Without @",
+      "limit": "Limit",
+      "limitPlaceholder": "Optional",
+      "from": "Tweets saved from",
+      "to": "Tweets saved until",
+      "uniqueLabel": "Only unique archive URLs",
+      "uniqueDescription": "Applies the collapse option on the URL key and uses the prefix match scope.",
+      "note": "Note: Large date ranges may take longer to process and could exceed available resources. Consider smaller ranges for faster results.",
+      "submit": "Go",
+      "submitting": "Retrieving...",
+      "usernameRequired": "Username is required."
+    },
+    "results": {
+      "title": "Results for @{username}",
+      "captured": "{total} URLs captured.",
+      "showing": "Showing {displayed} of {total} captures.",
+      "fields": {
+        "archivedParsed": "Archived (parsed)",
+        "archived": "Archived",
+        "archivedUrl": "Archived URL",
+        "parsedTweet": "Parsed Tweet",
+        "originalUrl": "Original URL",
+        "tweetText": "Available Tweet Text",
+        "status": "Status"
+      },
+      "linkArchived": "Archived",
+      "linkOpen": "Open"
+    },
+    "tabs": {
+      "preview": "Preview",
+      "html": "HTML",
+      "csv": "CSV",
+      "json": "JSON"
+    },
+    "sections": {
+      "howToTitle": "How to Search Twitter Archives",
+      "howToContent": "Searching through Twitter archive data is simple with Xarchive. Enter any tweet URL or Twitter profile link in the search box above, and our tool will scan the Wayback Machine for all available snapshots. You can filter results by date range to find specific Twitter archive entries from any time period, making it easy to recover historical tweets and conversations.",
+      "downloadTitle": "Download Twitter Archive Snapshots",
+      "downloadContent": "Once you've found the Twitter archive snapshots you need, Xarchive allows you to download them in multiple formats. Export your Twitter archive data as HTML for easy viewing, CSV for spreadsheet analysis, or JSON for developers and researchers. All Twitter archive downloads include timestamps, URLs, and complete snapshot metadata from the Internet Archive.",
+      "tryTools": "Try our {twitterLink} or explore the {instagramLink}.",
+      "twitterLinkText": "Twitter Archive tool",
+      "instagramLinkText": "Instagram Archive version"
+    },
+    "faq": {
+      "title": "Wayback Machine Twitter Archive FAQ",
+      "q1": "What is the Xarchive Twitter archive explorer?",
+      "a1": "Xarchive lets you search the Twitter archive via the Wayback Machine, preview snapshots, and export the results in HTML, CSV, or JSON.",
+      "q2": "How do I download tweets from the Twitter archive?",
+      "a2": "Enter a tweet or profile URL and select your desired snapshot range. The tool gathers archived data and lets you download it in multiple formats.",
+      "q3": "Is the Twitter archive data sourced from Wayback Machine snapshots?",
+      "a3": "Yes. Xarchive fetches CDX records from the Internet Archive's Wayback Machine to surface historical Twitter snapshots you can analyze or export."
+    }
+  },
+  "instagram": {
+    "pageTitle": "Free Instagram Archive Viewer & Downloader | Xarchive",
+    "pageDescription": "Explore and download Instagram archive snapshots instantly. Xarchive lets you search, preview, and export Instagram data saved on the Wayback Machine in HTML, CSV, or JSON formats.",
+    "hero": {
+      "title": "Instagram Archive Explorer – View and Export Saved Posts",
+      "subtitle": "Discover, preview, and export Instagram archive snapshots from Xarchive.net in seconds.",
+      "description": "Search Wayback Machine CDX data for Instagram posts and download results in HTML, CSV, and JSON."
+    },
+    "form": {
+      "title": "Search Filters",
+      "description": "Provide an Instagram username and optional filters to query the Internet Archive CDX API.",
+      "username": "Username",
+      "usernamePlaceholder": "Without @",
+      "limit": "Limit",
+      "limitPlaceholder": "Optional",
+      "from": "Posts saved from",
+      "to": "Posts saved until",
+      "uniqueLabel": "Only unique archive URLs",
+      "uniqueDescription": "Applies the collapse option on the URL key and uses the prefix match scope.",
+      "note": "Note: Large date ranges may take longer to process and could exceed available resources. Consider smaller ranges for faster results.",
+      "submit": "Go",
+      "submitting": "Retrieving...",
+      "usernameRequired": "Username is required."
+    },
+    "results": {
+      "title": "Results for @{username}",
+      "captured": "{total} URLs captured.",
+      "showing": "Showing {displayed} of {total} captures.",
+      "fields": {
+        "archivedParsed": "Archived (parsed)",
+        "archived": "Archived",
+        "archivedUrl": "Archived URL",
+        "parsedPost": "Parsed Post",
+        "originalUrl": "Original URL",
+        "status": "Status"
+      },
+      "linkArchived": "Archived",
+      "linkOpen": "Open"
+    },
+    "tabs": {
+      "html": "HTML",
+      "csv": "CSV",
+      "json": "JSON"
+    },
+    "sections": {
+      "howToTitle": "How to Search Instagram Archives",
+      "howToContent": "Searching through Instagram archive data is simple with Xarchive. Enter any Instagram username in the search box above, and our tool will scan the Wayback Machine for all available snapshots. You can filter results by date range to find specific Instagram archive entries from any time period, making it easy to recover historical posts, stories, and profiles.",
+      "downloadTitle": "Download Instagram Archive Snapshots",
+      "downloadContent": "Once you've found the Instagram archive snapshots you need, Xarchive allows you to download them in multiple formats. Export your Instagram archive data as HTML for easy viewing, CSV for spreadsheet analysis, or JSON for developers and researchers. All Instagram archive downloads include timestamps, URLs, and complete snapshot metadata from the Internet Archive.",
+      "tryTools": "Try our {instagramLink} or explore the {twitterLink}.",
+      "instagramLinkText": "Instagram Archive tool",
+      "twitterLinkText": "Twitter Archive version"
+    },
+    "faq": {
+      "title": "Wayback Machine Instagram Archive FAQ",
+      "q1": "What is the Xarchive Instagram archive explorer?",
+      "a1": "Xarchive lets you search the Instagram archive via the Wayback Machine, preview snapshots, and export the results in HTML, CSV, or JSON.",
+      "q2": "How do I download posts from the Instagram archive?",
+      "a2": "Enter an Instagram username and select your desired snapshot range. The tool gathers archived data and lets you download it in multiple formats.",
+      "q3": "How to archive Instagram posts?",
+      "a3": "To archive Instagram posts, you can use the Wayback Machine's 'Save Page Now' feature at web.archive.org/save. Simply paste the Instagram post URL and it will be saved to the Internet Archive. You can also use browser extensions like 'Wayback Machine' to quickly save pages. Once archived, you can search for them using Xarchive by entering the username.",
+      "q4": "Is the Instagram archive data sourced from Wayback Machine snapshots?",
+      "a4": "Yes. Xarchive fetches CDX records from the Internet Archive's Wayback Machine to surface historical Instagram snapshots you can analyze or export."
+    }
+  }
+}

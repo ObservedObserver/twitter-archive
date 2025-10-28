@@ -1,14 +1,15 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/routing";
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const t = useTranslations("nav");
 
   const links = [
-    { href: "/", label: "Twitter Archive" },
-    { href: "/archive-instagram", label: "Instagram Archive" },
+    { href: "/" as const, label: t("twitterArchive") },
+    { href: "/archive-instagram" as const, label: t("instagramArchive") },
   ];
 
   return (
@@ -16,7 +17,7 @@ export function SiteHeader() {
       <div className="container mx-auto flex h-14 max-w-5xl items-center px-4">
         <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="font-bold text-xl">Xarchive</span>
+            <span className="font-bold text-xl">{t("siteName", { ns: "common" })}</span>
           </Link>
         </div>
         <nav className="flex items-center space-x-6 text-sm font-medium">
@@ -39,4 +40,3 @@ export function SiteHeader() {
     </header>
   );
 }
-

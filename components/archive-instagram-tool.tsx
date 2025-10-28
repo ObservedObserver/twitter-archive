@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,17 +11,6 @@ import { Label } from "@/components/ui/label";
 import { HtmlTabDisplay } from "@/components/tabs/html-tab-display";
 import { CsvTabDisplay } from "@/components/tabs/csv-tab-display";
 import { JsonTabDisplay } from "@/components/tabs/json-tab-display";
-
-
-
-const FIELD_LABELS: Record<string, string> = {
-  parsed_archived_timestamp: "Archived (parsed)",
-  archived_timestamp: "Archived",
-  archived_post_url: "Archived URL",
-  parsed_post_url: "Parsed Post",
-  original_post_url: "Original URL",
-  archived_statuscode: "Status",
-};
 
 const DISPLAY_COLUMNS = [
   "parsed_archived_timestamp",
@@ -67,36 +57,46 @@ const sixMonthsAgo = () => {
 };
 
 
-const formatDisplayValue = (key: string, value: string | boolean | null | undefined): ReactNode => {
-  if (value === null || value === undefined || value === "") {
-    return <span className="text-muted-foreground">-</span>;
-  }
-
-  if (typeof value === "boolean") {
-    return value ? "Yes" : "No";
-  }
-
-  if (typeof value === "string" && /^https?:\/\//i.test(value)) {
-    const label = key.includes("archived") ? "Archived" : "Open";
-    return (
-      <a
-        href={value}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-primary underline-offset-4 hover:underline"
-      >
-        {label}
-      </a>
-    );
-  }
-
-  const stringValue = String(value);
-  const limit = 120;
-  const truncated = stringValue.length > limit ? `${stringValue.slice(0, limit)}...` : stringValue;
-  return truncated;
-};
-
 export default function ArchiveInstagramTool() {
+  const t = useTranslations("instagram");
+
+  const FIELD_LABELS: Record<string, string> = {
+    parsed_archived_timestamp: t("results.fields.archivedParsed"),
+    archived_timestamp: t("results.fields.archived"),
+    archived_post_url: t("results.fields.archivedUrl"),
+    parsed_post_url: t("results.fields.parsedPost"),
+    original_post_url: t("results.fields.originalUrl"),
+    archived_statuscode: t("results.fields.status"),
+  };
+
+  const formatDisplayValue = (key: string, value: string | boolean | null | undefined): ReactNode => {
+    if (value === null || value === undefined || value === "") {
+      return <span className="text-muted-foreground">-</span>;
+    }
+
+    if (typeof value === "boolean") {
+      return value ? "Yes" : "No";
+    }
+
+    if (typeof value === "string" && /^https?:\/\//i.test(value)) {
+      const label = key.includes("archived") ? t("results.linkArchived") : t("results.linkOpen");
+      return (
+        <a
+          href={value}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary underline-offset-4 hover:underline"
+        >
+          {label}
+        </a>
+      );
+    }
+
+    const stringValue = String(value);
+    const limit = 120;
+    const truncated = stringValue.length > limit ? `${stringValue.slice(0, limit)}...` : stringValue;
+    return truncated;
+  };
   const [form, setForm] = useState<FormState>({
     username: "",
     timestampFrom: sixMonthsAgo(),
@@ -119,7 +119,7 @@ export default function ArchiveInstagramTool() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!form.username.trim()) {
-      setError("Username is required.");
+      setError(t("form.usernameRequired"));
       return;
     }
 
@@ -203,17 +203,15 @@ export default function ArchiveInstagramTool() {
       <Card>
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <CardHeader>
-            <CardTitle>Search Filters</CardTitle>
-            <CardDescription>
-              Provide an Instagram username and optional filters to query the Internet Archive CDX API.
-            </CardDescription>
+            <CardTitle>{t("form.title")}</CardTitle>
+            <CardDescription>{t("form.description")}</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-6 md:grid-cols-2">
             <div className="flex flex-col gap-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username">{t("form.username")}</Label>
               <Input
                 id="username"
-                placeholder="Without @"
+                placeholder={t("form.usernamePlaceholder")}
                 value={form.username}
                 onChange={(event) => handleChange("username", event.target.value)}
                 required
@@ -221,10 +219,10 @@ export default function ArchiveInstagramTool() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <Label htmlFor="limit">Limit</Label>
+              <Label htmlFor="limit">{t("form.limit")}</Label>
               <Input
                 id="limit"
-                placeholder="Optional"
+                placeholder={t("form.limitPlaceholder")}
                 value={form.limit}
                 inputMode="numeric"
                 onChange={(event) => handleChange("limit", event.target.value)}
@@ -232,7 +230,7 @@ export default function ArchiveInstagramTool() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <Label htmlFor="from">Posts saved from</Label>
+              <Label htmlFor="from">{t("form.from")}</Label>
               <Input
                 id="from"
                 type="date"
@@ -243,7 +241,7 @@ export default function ArchiveInstagramTool() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <Label htmlFor="to">Posts saved until</Label>
+              <Label htmlFor="to">{t("form.to")}</Label>
               <Input
                 id="to"
                 type="date"
@@ -263,22 +261,21 @@ export default function ArchiveInstagramTool() {
               />
               <div className="flex flex-col">
                 <Label htmlFor="unique" className="text-base">
-                  Only unique archive URLs
+                  {t("form.uniqueLabel")}
                 </Label>
                 <span className="text-sm text-muted-foreground">
-                  Applies the collapse option on the URL key and uses the prefix match scope.
+                  {t("form.uniqueDescription")}
                 </span>
               </div>
             </div>
 
             <p className="text-sm text-muted-foreground md:col-span-2">
-              Note: Large date ranges may take longer to process and could exceed available resources. Consider
-              smaller ranges for faster results.
+              {t("form.note")}
             </p>
           </CardContent>
           <div className="flex items-center justify-end gap-3 px-6 pb-6">
             <Button type="submit" disabled={loading}>
-              {loading ? "Retrieving..." : "Go"}
+              {loading ? t("form.submitting") : t("form.submit")}
             </Button>
           </div>
         </form>
@@ -293,9 +290,9 @@ export default function ArchiveInstagramTool() {
       {response && (
         <section className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
-            <h2 className="text-2xl font-semibold">Results for @{response.meta.username}</h2>
+            <h2 className="text-2xl font-semibold">{t("results.title", { username: response.meta.username })}</h2>
             <p className="text-muted-foreground">
-              {response.meta.total} URLs captured.
+              {t("results.captured", { total: response.meta.total })}
             </p>
           </div>
 
@@ -325,7 +322,7 @@ export default function ArchiveInstagramTool() {
               </table>
             </div>
             <div className="border-t px-4 py-3 text-xs text-muted-foreground">
-              Showing {displayedRows.length} of {response.meta.total} captures.
+              {t("results.showing", { displayed: displayedRows.length, total: response.meta.total })}
             </div>
           </div>
 
@@ -339,7 +336,7 @@ export default function ArchiveInstagramTool() {
                   activeTab === tab ? "border-primary bg-primary text-primary-foreground" : "border-input"
                 }`}
               >
-                {tab}
+                {t(`tabs.${tab.toLowerCase()}`)}
               </button>
             ))}
           </div>

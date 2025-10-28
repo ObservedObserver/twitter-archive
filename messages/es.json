@@ -1,0 +1,139 @@
+{
+  "common": {
+    "siteName": "Xarchive"
+  },
+  "nav": {
+    "twitterArchive": "Archivo de Twitter",
+    "instagramArchive": "Archivo de Instagram"
+  },
+  "twitter": {
+    "pageTitle": "Visor y Descargador Gratuito de Archivos de Twitter | Xarchive",
+    "pageDescription": "Explora y descarga instantáneas de archivos de Twitter al instante. Xarchive te permite buscar, previsualizar y exportar datos de Twitter guardados en Wayback Machine en formatos HTML, CSV o JSON.",
+    "hero": {
+      "title": "Explorador de Archivos de Twitter - Ver y Exportar Tweets Guardados",
+      "subtitle": "Descubre, previsualiza y exporta instantáneas de archivos de Twitter desde Xarchive.net en segundos.",
+      "description": "Busca datos CDX de Wayback Machine para tweets y descarga resultados en HTML, CSV y JSON."
+    },
+    "form": {
+      "title": "Filtros de Búsqueda",
+      "description": "Proporciona un nombre de usuario de Twitter y filtros opcionales para consultar la API CDX del Internet Archive.",
+      "username": "Nombre de usuario",
+      "usernamePlaceholder": "Sin @",
+      "limit": "Límite",
+      "limitPlaceholder": "Opcional",
+      "from": "Tweets guardados desde",
+      "to": "Tweets guardados hasta",
+      "uniqueLabel": "Solo URLs de archivo únicas",
+      "uniqueDescription": "Aplica la opción de colapso en la clave de URL y usa el alcance de coincidencia de prefijo.",
+      "note": "Nota: Los rangos de fechas grandes pueden tardar más en procesarse y podrían exceder los recursos disponibles. Considera rangos más pequeños para obtener resultados más rápidos.",
+      "submit": "Buscar",
+      "submitting": "Recuperando...",
+      "usernameRequired": "El nombre de usuario es obligatorio."
+    },
+    "results": {
+      "title": "Resultados para @{username}",
+      "captured": "{total} URLs capturadas.",
+      "showing": "Mostrando {displayed} de {total} capturas.",
+      "fields": {
+        "archivedParsed": "Archivado (analizado)",
+        "archived": "Archivado",
+        "archivedUrl": "URL archivada",
+        "parsedTweet": "Tweet analizado",
+        "originalUrl": "URL original",
+        "tweetText": "Texto del tweet disponible",
+        "status": "Estado"
+      },
+      "linkArchived": "Archivado",
+      "linkOpen": "Abrir"
+    },
+    "tabs": {
+      "preview": "Vista previa",
+      "html": "HTML",
+      "csv": "CSV",
+      "json": "JSON"
+    },
+    "sections": {
+      "howToTitle": "Cómo Buscar en los Archivos de Twitter",
+      "howToContent": "Buscar en los datos del archivo de Twitter es simple con Xarchive. Ingresa cualquier URL de tweet o enlace de perfil de Twitter en el cuadro de búsqueda de arriba, y nuestra herramienta escaneará Wayback Machine en busca de todas las instantáneas disponibles. Puedes filtrar los resultados por rango de fechas para encontrar entradas específicas del archivo de Twitter de cualquier período de tiempo, lo que facilita la recuperación de tweets históricos y conversaciones.",
+      "downloadTitle": "Descargar Instantáneas de Archivos de Twitter",
+      "downloadContent": "Una vez que hayas encontrado las instantáneas del archivo de Twitter que necesitas, Xarchive te permite descargarlas en múltiples formatos. Exporta tus datos del archivo de Twitter como HTML para una visualización fácil, CSV para análisis de hojas de cálculo, o JSON para desarrolladores e investigadores. Todas las descargas del archivo de Twitter incluyen marcas de tiempo, URLs y metadatos completos de instantáneas del Internet Archive.",
+      "tryTools": "Prueba nuestra {twitterLink} o explora la {instagramLink}.",
+      "twitterLinkText": "herramienta de Archivo de Twitter",
+      "instagramLinkText": "versión de Archivo de Instagram"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes sobre el Archivo de Twitter de Wayback Machine",
+      "q1": "¿Qué es el explorador de archivos de Twitter de Xarchive?",
+      "a1": "Xarchive te permite buscar en el archivo de Twitter a través de Wayback Machine, previsualizar instantáneas y exportar los resultados en HTML, CSV o JSON.",
+      "q2": "¿Cómo descargo tweets del archivo de Twitter?",
+      "a2": "Ingresa una URL de tweet o perfil y selecciona el rango de instantáneas deseado. La herramienta recopila datos archivados y te permite descargarlos en múltiples formatos.",
+      "q3": "¿Los datos del archivo de Twitter provienen de las instantáneas de Wayback Machine?",
+      "a3": "Sí. Xarchive obtiene registros CDX de Wayback Machine del Internet Archive para mostrar instantáneas históricas de Twitter que puedes analizar o exportar."
+    }
+  },
+  "instagram": {
+    "pageTitle": "Visor y Descargador Gratuito de Archivos de Instagram | Xarchive",
+    "pageDescription": "Explora y descarga instantáneas de archivos de Instagram al instante. Xarchive te permite buscar, previsualizar y exportar datos de Instagram guardados en Wayback Machine en formatos HTML, CSV o JSON.",
+    "hero": {
+      "title": "Explorador de Archivos de Instagram - Ver y Exportar Publicaciones Guardadas",
+      "subtitle": "Descubre, previsualiza y exporta instantáneas de archivos de Instagram desde Xarchive.net en segundos.",
+      "description": "Busca datos CDX de Wayback Machine para publicaciones de Instagram y descarga resultados en HTML, CSV y JSON."
+    },
+    "form": {
+      "title": "Filtros de Búsqueda",
+      "description": "Proporciona un nombre de usuario de Instagram y filtros opcionales para consultar la API CDX del Internet Archive.",
+      "username": "Nombre de usuario",
+      "usernamePlaceholder": "Sin @",
+      "limit": "Límite",
+      "limitPlaceholder": "Opcional",
+      "from": "Publicaciones guardadas desde",
+      "to": "Publicaciones guardadas hasta",
+      "uniqueLabel": "Solo URLs de archivo únicas",
+      "uniqueDescription": "Aplica la opción de colapso en la clave de URL y usa el alcance de coincidencia de prefijo.",
+      "note": "Nota: Los rangos de fechas grandes pueden tardar más en procesarse y podrían exceder los recursos disponibles. Considera rangos más pequeños para obtener resultados más rápidos.",
+      "submit": "Buscar",
+      "submitting": "Recuperando...",
+      "usernameRequired": "El nombre de usuario es obligatorio."
+    },
+    "results": {
+      "title": "Resultados para @{username}",
+      "captured": "{total} URLs capturadas.",
+      "showing": "Mostrando {displayed} de {total} capturas.",
+      "fields": {
+        "archivedParsed": "Archivado (analizado)",
+        "archived": "Archivado",
+        "archivedUrl": "URL archivada",
+        "parsedPost": "Publicación analizada",
+        "originalUrl": "URL original",
+        "status": "Estado"
+      },
+      "linkArchived": "Archivado",
+      "linkOpen": "Abrir"
+    },
+    "tabs": {
+      "html": "HTML",
+      "csv": "CSV",
+      "json": "JSON"
+    },
+    "sections": {
+      "howToTitle": "Cómo Buscar en los Archivos de Instagram",
+      "howToContent": "Buscar en los datos del archivo de Instagram es simple con Xarchive. Ingresa cualquier nombre de usuario de Instagram en el cuadro de búsqueda de arriba, y nuestra herramienta escaneará Wayback Machine en busca de todas las instantáneas disponibles. Puedes filtrar los resultados por rango de fechas para encontrar entradas específicas del archivo de Instagram de cualquier período de tiempo, lo que facilita la recuperación de publicaciones históricas, historias y perfiles.",
+      "downloadTitle": "Descargar Instantáneas de Archivos de Instagram",
+      "downloadContent": "Una vez que hayas encontrado las instantáneas del archivo de Instagram que necesitas, Xarchive te permite descargarlas en múltiples formatos. Exporta tus datos del archivo de Instagram como HTML para una visualización fácil, CSV para análisis de hojas de cálculo, o JSON para desarrolladores e investigadores. Todas las descargas del archivo de Instagram incluyen marcas de tiempo, URLs y metadatos completos de instantáneas del Internet Archive.",
+      "tryTools": "Prueba nuestra {instagramLink} o explora la {twitterLink}.",
+      "instagramLinkText": "herramienta de Archivo de Instagram",
+      "twitterLinkText": "versión de Archivo de Twitter"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes sobre el Archivo de Instagram de Wayback Machine",
+      "q1": "¿Qué es el explorador de archivos de Instagram de Xarchive?",
+      "a1": "Xarchive te permite buscar en el archivo de Instagram a través de Wayback Machine, previsualizar instantáneas y exportar los resultados en HTML, CSV o JSON.",
+      "q2": "¿Cómo descargo publicaciones del archivo de Instagram?",
+      "a2": "Ingresa un nombre de usuario de Instagram y selecciona el rango de instantáneas deseado. La herramienta recopila datos archivados y te permite descargarlos en múltiples formatos.",
+      "q3": "¿Cómo archivar publicaciones de Instagram?",
+      "a3": "Para archivar publicaciones de Instagram, puedes usar la función 'Save Page Now' de Wayback Machine en web.archive.org/save. Simplemente pega la URL de la publicación de Instagram y se guardará en el Internet Archive. También puedes usar extensiones de navegador como 'Wayback Machine' para guardar páginas rápidamente. Una vez archivadas, puedes buscarlas usando Xarchive ingresando el nombre de usuario.",
+      "q4": "¿Los datos del archivo de Instagram provienen de las instantáneas de Wayback Machine?",
+      "a4": "Sí. Xarchive obtiene registros CDX de Wayback Machine del Internet Archive para mostrar instantáneas históricas de Instagram que puedes analizar o exportar."
+    }
+  }
+}

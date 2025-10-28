@@ -1,0 +1,139 @@
+{
+  "common": {
+    "siteName": "Xarchive"
+  },
+  "nav": {
+    "twitterArchive": "Twitterアーカイブ",
+    "instagramArchive": "Instagramアーカイブ"
+  },
+  "twitter": {
+    "pageTitle": "無料Twitterアーカイブビューアー＆ダウンローダー | Xarchive",
+    "pageDescription": "Twitterアーカイブのスナップショットを即座に探索・ダウンロード。XarchiveはWayback Machineに保存されたTwitterデータを検索、プレビュー、HTML、CSV、JSON形式でエクスポートできます。",
+    "hero": {
+      "title": "Twitterアーカイブエクスプローラー - 保存されたツイートを表示・エクスポート",
+      "subtitle": "Xarchive.netからTwitterアーカイブのスナップショットを数秒で検索、プレビュー、エクスポート。",
+      "description": "Wayback Machine CDXデータからツイートを検索し、HTML、CSV、JSON形式で結果をダウンロード。"
+    },
+    "form": {
+      "title": "検索フィルター",
+      "description": "Twitterユーザー名とオプションのフィルターを入力して、Internet Archive CDX APIにクエリを送信します。",
+      "username": "ユーザー名",
+      "usernamePlaceholder": "@なし",
+      "limit": "制限",
+      "limitPlaceholder": "オプション",
+      "from": "保存開始日",
+      "to": "保存終了日",
+      "uniqueLabel": "一意のアーカイブURLのみ",
+      "uniqueDescription": "URLキーに折りたたみオプションを適用し、プレフィックスマッチスコープを使用します。",
+      "note": "注意：大きな日付範囲は処理に時間がかかり、利用可能なリソースを超える可能性があります。より速い結果を得るには、より小さな範囲を検討してください。",
+      "submit": "実行",
+      "submitting": "取得中...",
+      "usernameRequired": "ユーザー名は必須です。"
+    },
+    "results": {
+      "title": "@{username}の結果",
+      "captured": "{total}個のURLを取得。",
+      "showing": "{total}件中{displayed}件を表示。",
+      "fields": {
+        "archivedParsed": "アーカイブ日時（解析済み）",
+        "archived": "アーカイブ日時",
+        "archivedUrl": "アーカイブURL",
+        "parsedTweet": "解析されたツイート",
+        "originalUrl": "元のURL",
+        "tweetText": "利用可能なツイートテキスト",
+        "status": "ステータス"
+      },
+      "linkArchived": "アーカイブ",
+      "linkOpen": "開く"
+    },
+    "tabs": {
+      "preview": "プレビュー",
+      "html": "HTML",
+      "csv": "CSV",
+      "json": "JSON"
+    },
+    "sections": {
+      "howToTitle": "Twitterアーカイブの検索方法",
+      "howToContent": "XarchiveでTwitterアーカイブデータを検索するのは簡単です。上の検索ボックスに任意のツイートURLまたはTwitterプロフィールリンクを入力すると、ツールがWayback Machineで利用可能なすべてのスナップショットをスキャンします。日付範囲で結果をフィルタリングして、任意の期間からの特定のTwitterアーカイブエントリを見つけることができ、過去のツイートや会話を簡単に復元できます。",
+      "downloadTitle": "Twitterアーカイブスナップショットのダウンロード",
+      "downloadContent": "必要なTwitterアーカイブスナップショットを見つけたら、Xarchiveは複数の形式でダウンロードできます。簡単に表示できるHTML、スプレッドシート分析用のCSV、開発者や研究者向けのJSONとして、Twitterアーカイブデータをエクスポートできます。すべてのTwitterアーカイブダウンロードには、Internet Archiveからのタイムスタンプ、URL、完全なスナップショットメタデータが含まれます。",
+      "tryTools": "{twitterLink}を試すか、{instagramLink}をご覧ください。",
+      "twitterLinkText": "Twitterアーカイブツール",
+      "instagramLinkText": "Instagramアーカイブ版"
+    },
+    "faq": {
+      "title": "Wayback Machine Twitterアーカイブよくある質問",
+      "q1": "Xarchive Twitterアーカイブエクスプローラーとは何ですか？",
+      "a1": "XarchiveはWayback Machine経由でTwitterアーカイブを検索し、スナップショットをプレビューし、HTML、CSV、またはJSON形式で結果をエクスポートできます。",
+      "q2": "Twitterアーカイブからツイートをダウンロードする方法は？",
+      "a2": "ツイートまたはプロフィールのURLを入力し、希望するスナップショット範囲を選択します。ツールはアーカイブされたデータを収集し、複数の形式でダウンロードできます。",
+      "q3": "TwitterアーカイブデータはWayback Machineのスナップショットから取得されますか？",
+      "a3": "はい。XarchiveはInternet ArchiveのWayback MachineからCDXレコードを取得し、分析またはエクスポートできる過去のTwitterスナップショットを表示します。"
+    }
+  },
+  "instagram": {
+    "pageTitle": "無料Instagramアーカイブビューアー＆ダウンローダー | Xarchive",
+    "pageDescription": "Instagramアーカイブのスナップショットを即座に探索・ダウンロード。XarchiveはWayback Machineに保存されたInstagramデータを検索、プレビュー、HTML、CSV、JSON形式でエクスポートできます。",
+    "hero": {
+      "title": "Instagramアーカイブエクスプローラー - 保存された投稿を表示・エクスポート",
+      "subtitle": "Xarchive.netからInstagramアーカイブのスナップショットを数秒で検索、プレビュー、エクスポート。",
+      "description": "Wayback Machine CDXデータからInstagram投稿を検索し、HTML、CSV、JSON形式で結果をダウンロード。"
+    },
+    "form": {
+      "title": "検索フィルター",
+      "description": "Instagramユーザー名とオプションのフィルターを入力して、Internet Archive CDX APIにクエリを送信します。",
+      "username": "ユーザー名",
+      "usernamePlaceholder": "@なし",
+      "limit": "制限",
+      "limitPlaceholder": "オプション",
+      "from": "保存開始日",
+      "to": "保存終了日",
+      "uniqueLabel": "一意のアーカイブURLのみ",
+      "uniqueDescription": "URLキーに折りたたみオプションを適用し、プレフィックスマッチスコープを使用します。",
+      "note": "注意：大きな日付範囲は処理に時間がかかり、利用可能なリソースを超える可能性があります。より速い結果を得るには、より小さな範囲を検討してください。",
+      "submit": "実行",
+      "submitting": "取得中...",
+      "usernameRequired": "ユーザー名は必須です。"
+    },
+    "results": {
+      "title": "@{username}の結果",
+      "captured": "{total}個のURLを取得。",
+      "showing": "{total}件中{displayed}件を表示。",
+      "fields": {
+        "archivedParsed": "アーカイブ日時（解析済み）",
+        "archived": "アーカイブ日時",
+        "archivedUrl": "アーカイブURL",
+        "parsedPost": "解析された投稿",
+        "originalUrl": "元のURL",
+        "status": "ステータス"
+      },
+      "linkArchived": "アーカイブ",
+      "linkOpen": "開く"
+    },
+    "tabs": {
+      "html": "HTML",
+      "csv": "CSV",
+      "json": "JSON"
+    },
+    "sections": {
+      "howToTitle": "Instagramアーカイブの検索方法",
+      "howToContent": "XarchiveでInstagramアーカイブデータを検索するのは簡単です。上の検索ボックスにInstagramのユーザー名を入力すると、ツールがWayback Machineで利用可能なすべてのスナップショットをスキャンします。日付範囲で結果をフィルタリングして、任意の期間からの特定のInstagramアーカイブエントリを見つけることができ、過去の投稿、ストーリー、プロフィールを簡単に復元できます。",
+      "downloadTitle": "Instagramアーカイブスナップショットのダウンロード",
+      "downloadContent": "必要なInstagramアーカイブスナップショットを見つけたら、Xarchiveは複数の形式でダウンロードできます。簡単に表示できるHTML、スプレッドシート分析用のCSV、開発者や研究者向けのJSONとして、Instagramアーカイブデータをエクスポートできます。すべてのInstagramアーカイブダウンロードには、Internet Archiveからのタイムスタンプ、URL、完全なスナップショットメタデータが含まれます。",
+      "tryTools": "{instagramLink}を試すか、{twitterLink}をご覧ください。",
+      "instagramLinkText": "Instagramアーカイブツール",
+      "twitterLinkText": "Twitterアーカイブ版"
+    },
+    "faq": {
+      "title": "Wayback Machine Instagramアーカイブよくある質問",
+      "q1": "Xarchive Instagramアーカイブエクスプローラーとは何ですか？",
+      "a1": "XarchiveはWayback Machine経由でInstagramアーカイブを検索し、スナップショットをプレビューし、HTML、CSV、またはJSON形式で結果をエクスポートできます。",
+      "q2": "Instagramアーカイブから投稿をダウンロードする方法は？",
+      "a2": "Instagramのユーザー名を入力し、希望するスナップショット範囲を選択します。ツールはアーカイブされたデータを収集し、複数の形式でダウンロードできます。",
+      "q3": "Instagram投稿をアーカイブする方法は？",
+      "a3": "Instagram投稿をアーカイブするには、web.archive.org/saveでWayback Machineの「Save Page Now」機能を使用できます。Instagram投稿のURLを貼り付けるだけで、Internet Archiveに保存されます。また、「Wayback Machine」などのブラウザ拡張機能を使用してページを素早く保存することもできます。アーカイブされたら、ユーザー名を入力してXarchiveで検索できます。",
+      "q4": "InstagramアーカイブデータはWayback Machineのスナップショットから取得されますか？",
+      "a4": "はい。XarchiveはInternet ArchiveのWayback MachineからCDXレコードを取得し、分析またはエクスポートできる過去のInstagramスナップショットを表示します。"
+    }
+  }
+}
