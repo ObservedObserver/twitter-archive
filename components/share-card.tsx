@@ -37,12 +37,14 @@ function buildShareContent(pathname: string): ShareContent {
 
 export function ShareCard() {
   const pathname = usePathname();
+  const shouldRender = pathname in PAGE_SHARE_CONTENT;
   const [copied, setCopied] = useState(false);
   const [shareUrl, setShareUrl] = useState("");
 
   useEffect(() => {
+    if (!shouldRender) return;
     setShareUrl(window.location.href);
-  }, [pathname]);
+  }, [pathname, shouldRender]);
 
   const content = useMemo(() => buildShareContent(pathname), [pathname]);
   const canonicalUrl = useMemo(() => {
@@ -52,6 +54,10 @@ export function ShareCard() {
     return `https://xarchive.net${pathname}`;
   }, [pathname]);
   const url = shareUrl || canonicalUrl;
+
+  if (!shouldRender) {
+    return null;
+  }
 
   const baseText = `${content.title} - ${content.description}`;
   const encodedUrl = encodeURIComponent(url);

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 import { ShareCard } from "@/components/share-card";
 import "./globals.css";
 
@@ -16,8 +17,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Snapshot Explorer",
-  description: "Browse archived tweets and Instagram posts retrieved from the Internet Archive.",
+  metadataBase: new URL(process.env.SITE_URL ?? "https://xarchive.net"),
+  title: {
+    default: "Xarchive",
+    template: "%s | Xarchive",
+  },
+  description: "Browse and export archived Twitter and Instagram snapshots from the Wayback Machine.",
 };
 
 export default function RootLayout({
@@ -33,6 +38,7 @@ export default function RootLayout({
         <SiteHeader />
         {children}
         <ShareCard />
+        <SiteFooter />
         <Analytics />
       </body>
     </html>
