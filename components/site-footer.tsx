@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const footerLinks = [
+  { href: "/guides/deleted-tweets", label: "Deleted Tweets Guides" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
   { href: "/privacy", label: "Privacy Policy" },
@@ -35,4 +36,3 @@ export function SiteFooter() {
     </footer>
   );
 }
-

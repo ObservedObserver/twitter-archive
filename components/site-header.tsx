@@ -8,6 +8,7 @@ export function SiteHeader() {
 
   const links = [
     { href: "/", label: "Twitter Archive" },
+    { href: "/guides/deleted-tweets", label: "Guides" },
     { href: "/archive-instagram", label: "Instagram Archive" },
   ];
 
@@ -21,7 +22,9 @@ export function SiteHeader() {
         </div>
         <nav className="flex items-center space-x-6 text-sm font-medium">
           {links.map((link) => {
-            const isActive = pathname === link.href;
+            const isActive =
+              pathname === link.href ||
+              (link.href !== "/" && pathname.startsWith(`${link.href}/`));
             return (
               <Link
                 key={link.href}
@@ -39,4 +42,3 @@ export function SiteHeader() {
     </header>
   );
 }
-

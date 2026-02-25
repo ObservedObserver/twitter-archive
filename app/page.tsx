@@ -90,6 +90,13 @@ export default function Home() {
         <p className="text-sm text-muted-foreground">
           Try our <Link href="/" className="text-primary hover:underline">Twitter Archive tool</Link> or explore the <Link href="/archive-instagram" className="text-primary hover:underline">Instagram Archive version</Link>.
         </p>
+        <p className="text-sm text-muted-foreground">
+          Need workflows? Browse the{" "}
+          <Link href="/guides/deleted-tweets" className="text-primary hover:underline">
+            Deleted Tweets Guides
+          </Link>
+          .
+        </p>
       </section>
 
       <section className="space-y-6" aria-labelledby="faq-heading">
