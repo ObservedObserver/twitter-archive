@@ -1,5 +1,11 @@
 # Xarchive 冷启动内容计划（Ahrefs 深度调研版）
 
+## 进度更新（2026-03-02）
+- [x] Week 1（#1 #4 #5 #6 #9）已上线。
+- [x] Week 2（#2 #3 #7 #8 #12）已上线（新增 5 篇指南页）。
+- [ ] Week 3（#10 #11 #13 #14 #15）待执行。
+- [ ] Week 4（#16 #17 #18 #19 #20）待执行。
+
 ## 0) 调研快照（2026-02-25）
 - 数据来源：Ahrefs MCP（`keywords-explorer-*`、`serp-overview`、`site-explorer-*`）。
 - 当前站点基线：`xarchive.net` 在 US 库中 `org_keywords=0`、`org_traffic=0`（冷启动状态）。

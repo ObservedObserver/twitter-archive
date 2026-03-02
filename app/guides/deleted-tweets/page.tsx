@@ -53,7 +53,7 @@ export default function DeletedTweetsGuidesHubPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-semibold">Published Guides (Week 1)</h2>
+        <h2 className="text-xl font-semibold">Published Guides</h2>
         <div className="space-y-3">
           {guides.map((guide) => (
             <article key={guide.slug} className="rounded-lg border p-4">
