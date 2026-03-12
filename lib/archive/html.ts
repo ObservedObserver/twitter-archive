@@ -1,4 +1,4 @@
-import type { ParsedInstagramPost, ParsedTweet } from "./types";
+import type { ParsedInstagramPost, ParsedRedditCapture, ParsedTweet } from "./types";
 import { timestampParser } from "./utils";
 
 const FIELD_LABELS: Record<string, string> = {
@@ -16,6 +16,16 @@ const FIELD_LABELS: Record<string, string> = {
   parsed_archived_post_url: "Parsed Archived Post URL",
   original_post_url: "Original Post URL",
   parsed_post_url: "Parsed Post URL",
+  archived_reddit_url: "Archived Reddit URL",
+  parsed_archived_reddit_url: "Parsed Archived Reddit URL",
+  original_reddit_url: "Original Reddit URL",
+  parsed_reddit_url: "Parsed Reddit URL",
+  reddit_resource_type: "Reddit Resource Type",
+  reddit_subreddit: "Subreddit",
+  reddit_author: "Author",
+  reddit_post_id: "Post ID",
+  reddit_comment_id: "Comment ID",
+  reddit_post_title: "Post Title",
   archived_mimetype: "Archived MIME Type",
   archived_statuscode: "Archived Status Code",
   archived_digest: "Archived Digest",
@@ -33,6 +43,20 @@ const FIELD_ORDER = [
   "available_tweet_text",
   "available_tweet_is_RT",
   "available_tweet_info",
+  "archived_post_url",
+  "parsed_archived_post_url",
+  "original_post_url",
+  "parsed_post_url",
+  "archived_reddit_url",
+  "parsed_archived_reddit_url",
+  "original_reddit_url",
+  "parsed_reddit_url",
+  "reddit_resource_type",
+  "reddit_subreddit",
+  "reddit_author",
+  "reddit_post_id",
+  "reddit_comment_id",
+  "reddit_post_title",
   "archived_mimetype",
   "archived_statuscode",
   "archived_digest",
@@ -41,8 +65,18 @@ const FIELD_ORDER = [
   "resumption_key",
 ] as const;
 
-export function buildTweetsHtml(username: string, tweets: (ParsedTweet | ParsedInstagramPost)[]): string {
-  const summary = `Total captures: ${tweets.length}`;
+type HtmlOptions = {
+  title?: string;
+  summaryLabel?: string;
+};
+
+export function buildTweetsHtml(
+  username: string,
+  tweets: (ParsedTweet | ParsedInstagramPost | ParsedRedditCapture)[],
+  options: HtmlOptions = {}
+): string {
+  const pageTitle = options.title ?? `Archived tweets of @${username}`;
+  const summary = options.summaryLabel ?? `Total captures: ${tweets.length}`;
 
   const cards = tweets
     .map((tweet, index) => renderTweetCard(tweet, index))
@@ -53,7 +87,7 @@ export function buildTweetsHtml(username: string, tweets: (ParsedTweet | ParsedI
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Archived tweets of @${escapeHtml(username)}</title>
+  <title>${escapeHtml(pageTitle)}</title>
   <style>
     :root {
       color-scheme: light dark;
@@ -158,7 +192,7 @@ export function buildTweetsHtml(username: string, tweets: (ParsedTweet | ParsedI
 </head>
 <body>
   <header>
-    <h1>Archived tweets of @${escapeHtml(username)}</h1>
+    <h1>${escapeHtml(pageTitle)}</h1>
     <p class="meta">${escapeHtml(summary)}</p>
   </header>
   <main>
@@ -171,7 +205,7 @@ export function buildTweetsHtml(username: string, tweets: (ParsedTweet | ParsedI
 </html>`;
 }
 
-function renderTweetCard(tweet: ParsedTweet | ParsedInstagramPost, index: number): string {
+function renderTweetCard(tweet: ParsedTweet | ParsedInstagramPost | ParsedRedditCapture, index: number): string {
   const tweetRecord = tweet as Record<string, string | boolean | null>;
   const rows = FIELD_ORDER.filter((field) => tweetRecord[field] !== undefined).map((field) => {
     let value = tweetRecord[field];

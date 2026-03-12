@@ -57,8 +57,19 @@ export default function AboutPage() {
         </p>
       </section>
 
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold">Where to start</h2>
+        <p className="text-muted-foreground">
+          New visitors usually start with the tool, then move into a guide once they know the exact task.
+          For deleted-tweet research, browse the{" "}
+          <Link href="/guides" className="text-primary hover:underline">
+            Guides Library
+          </Link>
+          .
+        </p>
+      </section>
+
       <p className="text-xs text-muted-foreground">Last updated: February 25, 2026</p>
     </PageShell>
   );
 }
-

@@ -20,6 +20,25 @@ export type GuideDefinition = {
   relatedSlugs: string[];
 };
 
+export const deletedTweetsGuideSlugs = [
+  "see-deleted-tweets",
+  "view-deleted-tweets",
+  "search-deleted-tweets",
+  "how-to-see-deleted-tweets",
+  "find-deleted-tweets",
+  "how-to-find-deleted-tweets",
+  "find-deleted-twitter-posts",
+  "twitter-archive-deleted-tweets",
+  "archived-tweets-viewer",
+  "archived-twitter-posts",
+];
+
+export const waybackTwitterGuideSlugs = [
+  "wayback-machine-deleted-tweets",
+  "wayback-machine-twitter-accounts",
+  "how-to-use-wayback-machine-for-twitter",
+];
+
 const guideDefinitions: GuideDefinition[] = [
   {
     slug: "see-deleted-tweets",
@@ -250,6 +269,63 @@ const guideDefinitions: GuideDefinition[] = [
     ],
   },
   {
+    slug: "find-deleted-twitter-posts",
+    title: "Find Deleted Twitter Posts",
+    description:
+      "Find deleted Twitter posts with a URL-first workflow built on Internet Archive CDX captures.",
+    intro:
+      "Some searchers use tweet and post interchangeably. This guide targets that wording while keeping the workflow grounded in public archive evidence.",
+    quickAnswer:
+      "To find deleted Twitter posts, search the original tweet URL or profile URL in Xarchive, narrow the date window, then validate the closest archived captures.",
+    steps: [
+      "Collect the original tweet URL if available, and keep the profile URL as a fallback.",
+      "Run the search in Xarchive to retrieve matching CDX rows.",
+      "Filter by the likely posting and deletion dates to cut noise.",
+      "Open the nearest captures and compare before-and-after visibility.",
+      "Export the final evidence set in CSV, JSON, or HTML for review.",
+    ],
+    commonIssues: [
+      {
+        title: "Search intent is too broad",
+        description:
+          "Use a specific URL and time window. Generic profile searches create too many low-signal captures.",
+      },
+      {
+        title: "Profile shows activity but the post is absent",
+        description:
+          "Keep the profile snapshot as context and try nearby captures for the direct tweet URL.",
+      },
+      {
+        title: "Need a faster verification handoff",
+        description:
+          "HTML export is usually the quickest format for editors or investigators to review.",
+      },
+    ],
+    faq: [
+      {
+        question: "Is a deleted Twitter post different from a deleted tweet here?",
+        answer:
+          "No. The workflow is the same; this page matches the alternative phrasing people search for.",
+      },
+      {
+        question: "Can I search by date only?",
+        answer:
+          "Date filters help, but a tweet or profile URL is still the strongest starting point.",
+      },
+      {
+        question: "What should I save for later verification?",
+        answer:
+          "Keep the original URL, archive URL, UTC timestamp, and exported result set together.",
+      },
+    ],
+    relatedSlugs: [
+      "find-deleted-tweets",
+      "search-deleted-tweets",
+      "archived-twitter-posts",
+      "how-to-find-deleted-tweets",
+    ],
+  },
+  {
     slug: "search-deleted-tweets",
     title: "Search Deleted Tweets",
     description:
@@ -304,6 +380,63 @@ const guideDefinitions: GuideDefinition[] = [
       "view-deleted-tweets",
       "find-deleted-tweets",
       "how-to-find-deleted-tweets",
+    ],
+  },
+  {
+    slug: "wayback-machine-twitter-accounts",
+    title: "Wayback Machine Twitter Accounts",
+    description:
+      "Use Wayback Machine Twitter account snapshots to reconstruct profile activity and deleted-account history.",
+    intro:
+      "Account-level captures are often the best fallback when a direct tweet URL is missing. This page focuses on timeline reconstruction from profile snapshots.",
+    quickAnswer:
+      "Search the Twitter account URL in Xarchive, inspect profile captures across key dates, and extract referenced tweet URLs to verify deleted content.",
+    steps: [
+      "Start with the canonical profile URL and any known older handles.",
+      "Run the account search in Xarchive and collect capture timestamps.",
+      "Open snapshots around major events to map profile changes and visible posts.",
+      "Follow linked tweet URLs from those snapshots when deeper verification is needed.",
+      "Export the account timeline in CSV or JSON for structured analysis.",
+    ],
+    commonIssues: [
+      {
+        title: "The handle changed over time",
+        description:
+          "Search each known handle variant and merge the timeline using timestamps.",
+      },
+      {
+        title: "Only sparse profile captures exist",
+        description:
+          "Use each capture as a waypoint. Even partial profile pages can confirm activity windows.",
+      },
+      {
+        title: "Need to explain gaps in coverage",
+        description:
+          "State clearly that Internet Archive coverage depends on public crawls and may be incomplete.",
+      },
+    ],
+    faq: [
+      {
+        question: "Can I recover every tweet from an archived account page?",
+        answer:
+          "No. Account snapshots help reconstruct history, but not every tweet will have been captured separately.",
+      },
+      {
+        question: "Is this useful when the account was deleted?",
+        answer:
+          "Yes. Profile captures can still establish that the account existed and what was visible at certain times.",
+      },
+      {
+        question: "Which export is best for account timelines?",
+        answer:
+          "CSV is best for sorting by time, while JSON works well for downstream tooling.",
+      },
+    ],
+    relatedSlugs: [
+      "twitter-archive-deleted-account",
+      "wayback-machine-deleted-tweets",
+      "how-to-use-wayback-machine-for-twitter",
+      "archived-twitter-posts",
     ],
   },
   {
@@ -591,12 +724,132 @@ const guideDefinitions: GuideDefinition[] = [
       "twitter-archive-deleted-tweets",
     ],
   },
+  {
+    slug: "archived-twitter-posts",
+    title: "Archived Twitter Posts",
+    description:
+      "Review archived Twitter posts with a verification workflow for public Wayback captures.",
+    intro:
+      "This page covers a broader archive-review workflow when you need historical Twitter posts, not only confirmed deletions.",
+    quickAnswer:
+      "Archived Twitter posts can be reviewed by searching tweet or profile URLs in Xarchive, inspecting CDX timestamps, and exporting the captures that matter.",
+    steps: [
+      "Choose the tweet URL or account URL that best matches your research goal.",
+      "Run the archive lookup in Xarchive and review the returned timestamps.",
+      "Open representative captures to confirm the post text, media, and surrounding context.",
+      "Flag captures tied to key events, edits, or deletions.",
+      "Export the reviewed set for reporting, analysis, or handoff.",
+    ],
+    commonIssues: [
+      {
+        title: "The page is archived, but media is incomplete",
+        description:
+          "Treat the text and metadata as primary evidence and note missing assets separately.",
+      },
+      {
+        title: "Too many snapshots for one URL",
+        description:
+          "Sample captures near important dates instead of reviewing every row.",
+      },
+      {
+        title: "Need both context and structure",
+        description:
+          "Use HTML export for reviewers and JSON/CSV for structured analysis.",
+      },
+    ],
+    faq: [
+      {
+        question: "Does this page only apply to deleted content?",
+        answer:
+          "No. It also covers historical post review when the goal is context, verification, or timeline analysis.",
+      },
+      {
+        question: "What input works best for archived Twitter posts?",
+        answer:
+          "A direct tweet URL is still best, but profile URLs help when the exact post URL is missing.",
+      },
+      {
+        question: "Can I use this for newsroom research?",
+        answer:
+          "Yes. The workflow is built for evidence capture, context review, and export.",
+      },
+    ],
+    relatedSlugs: [
+      "archived-tweets-viewer",
+      "find-deleted-twitter-posts",
+      "wayback-machine-twitter-accounts",
+      "how-to-use-wayback-machine-for-twitter",
+    ],
+  },
+  {
+    slug: "how-to-use-wayback-machine-for-twitter",
+    title: "How to Use Wayback Machine for Twitter",
+    description:
+      "Use Wayback Machine for Twitter research with a repeatable Xarchive workflow for profiles and tweets.",
+    intro:
+      "This guide is for users who understand Wayback Machine at a high level but need a practical Twitter-specific process.",
+    quickAnswer:
+      "Use Xarchive to query Internet Archive CDX records for Twitter URLs, focus on the right date range, and validate captures before exporting results.",
+    steps: [
+      "Decide whether you need a tweet-level lookup, profile-level lookup, or both.",
+      "Paste the target Twitter URL into Xarchive and run the CDX search.",
+      "Use date filters to narrow to the relevant activity window.",
+      "Open the nearest captures and confirm what was publicly visible at that time.",
+      "Export validated results and keep archive timestamps in UTC.",
+    ],
+    commonIssues: [
+      {
+        title: "Starting directly in raw Wayback is slow",
+        description:
+          "Use Xarchive first to surface the capture list, then open only the rows worth reviewing.",
+      },
+      {
+        title: "Users mix profile and tweet evidence",
+        description:
+          "Keep profile timeline captures and direct tweet captures in separate notes so claims stay precise.",
+      },
+      {
+        title: "Not sure what to cite",
+        description:
+          "Cite the original Twitter URL, the archive capture URL, and the capture timestamp together.",
+      },
+    ],
+    faq: [
+      {
+        question: "Do I need to know the CDX API to use this workflow?",
+        answer:
+          "No. Xarchive handles the CDX lookup and presents the captures in a simpler interface.",
+      },
+      {
+        question: "Can I use this for deleted tweets and deleted accounts?",
+        answer:
+          "Yes. The same process works for both, assuming public captures exist.",
+      },
+      {
+        question: "What is the main limitation?",
+        answer:
+          "The archive only shows what was publicly crawled, so missing captures are a normal limitation.",
+      },
+    ],
+    relatedSlugs: [
+      "wayback-machine-deleted-tweets",
+      "wayback-machine-twitter-accounts",
+      "archived-twitter-posts",
+      "find-deleted-tweets",
+    ],
+  },
 ];
 
 const guideMap = new Map(guideDefinitions.map((guide) => [guide.slug, guide]));
 
 export function getAllGuides(): GuideDefinition[] {
   return guideDefinitions;
+}
+
+export function getGuidesBySlugs(slugs: string[]): GuideDefinition[] {
+  return slugs
+    .map((slug) => guideMap.get(slug))
+    .filter((guide): guide is GuideDefinition => Boolean(guide));
 }
 
 export function getGuideBySlug(slug: string): GuideDefinition | undefined {

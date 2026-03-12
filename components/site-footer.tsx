@@ -1,7 +1,9 @@
 import Link from "next/link";
 
 const footerLinks = [
+  { href: "/guides", label: "Guides Library" },
   { href: "/guides/deleted-tweets", label: "Deleted Tweets Guides" },
+  { href: "/archive-reddit", label: "Reddit Archive" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
   { href: "/privacy", label: "Privacy Policy" },

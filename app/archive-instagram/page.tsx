@@ -103,6 +103,28 @@ export default function InstagramArchivePage() {
         </div>
 
         <div className="mx-auto max-w-5xl px-4 pt-16 pb-16 flex flex-col gap-10">
+          <section className="space-y-4 rounded-lg border p-5">
+            <h2 className="text-2xl font-semibold">Also Research Twitter Archives?</h2>
+            <p className="text-muted-foreground">
+              This Instagram page is already one of the site&apos;s strongest entry points. If the visitor also
+              needs Twitter investigation workflows, route them deeper instead of ending at a single tool session.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/guides"
+                className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
+              >
+                Browse Twitter Guides
+              </Link>
+              <Link
+                href="/guides/how-to-use-wayback-machine-for-twitter"
+                className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted"
+              >
+                Wayback Twitter Workflow
+              </Link>
+            </div>
+          </section>
+
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">How to Search Instagram Archives</h2>
             <p className="text-muted-foreground">
@@ -119,7 +141,16 @@ export default function InstagramArchivePage() {
 
           <section className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              Try our <Link href="/archive-instagram" className="text-primary hover:underline">Instagram Archive tool</Link> or explore the <Link href="/" className="text-primary hover:underline">Twitter Archive version</Link>.
+              Try our <Link href="/archive-instagram" className="text-primary hover:underline">Instagram Archive tool</Link>, the{" "}
+              <Link href="/" className="text-primary hover:underline">Twitter Archive version</Link>, or the{" "}
+              <Link href="/archive-reddit" className="text-primary hover:underline">Reddit Archive version</Link>.
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Need Twitter-specific workflows? Start with the{" "}
+              <Link href="/guides" className="text-primary hover:underline">
+                Guides Library
+              </Link>
+              .
             </p>
           </section>
 
@@ -145,4 +176,3 @@ export default function InstagramArchivePage() {
     </main>
   );
 }
-

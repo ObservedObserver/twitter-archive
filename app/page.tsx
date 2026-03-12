@@ -98,6 +98,40 @@ export default function Home() {
         </div>
 
         <div className="mx-auto max-w-5xl px-4 pt-16 pb-16 flex flex-col gap-10">
+          <section className="space-y-4 rounded-lg border p-5">
+            <h2 className="text-2xl font-semibold">Start With a Proven Workflow</h2>
+            <p className="text-muted-foreground">
+              Most visits currently land on the tool first. If you also need a repeatable method, jump straight
+              into one of the archive workflows below.
+            </p>
+            <div className="grid gap-3 md:grid-cols-3">
+              <Link href="/guides/find-deleted-tweets" className="rounded-lg border p-4 hover:bg-muted/40">
+                <h3 className="font-medium">Find Deleted Tweets</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  URL-first workflow for deleted tweet recovery and validation.
+                </p>
+              </Link>
+              <Link
+                href="/guides/how-to-use-wayback-machine-for-twitter"
+                className="rounded-lg border p-4 hover:bg-muted/40"
+              >
+                <h3 className="font-medium">Use Wayback for Twitter</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Best starting point for profile history and archive navigation.
+                </p>
+              </Link>
+              <Link
+                href="/use-cases/journalists-verify-deleted-statements"
+                className="rounded-lg border p-4 hover:bg-muted/40"
+              >
+                <h3 className="font-medium">Journalist Verification</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Evidence workflow for editors, reporters, and fact-checkers.
+                </p>
+              </Link>
+            </div>
+          </section>
+
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">How to Search Twitter Archives</h2>
             <p className="text-muted-foreground">
@@ -114,12 +148,25 @@ export default function Home() {
 
           <section className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              Try our <Link href="/" className="text-primary hover:underline">Twitter Archive tool</Link> or explore the <Link href="/archive-instagram" className="text-primary hover:underline">Instagram Archive version</Link>.
+              Try our <Link href="/" className="text-primary hover:underline">Twitter Archive tool</Link>, the{" "}
+              <Link href="/archive-reddit" className="text-primary hover:underline">Reddit Archive version</Link>, or the{" "}
+              <Link href="/archive-instagram" className="text-primary hover:underline">Instagram Archive version</Link>.
             </p>
             <p className="text-sm text-muted-foreground">
               Need workflows? Browse the{" "}
+              <Link href="/guides" className="text-primary hover:underline">
+                Guides Library
+              </Link>
+              , the{" "}
               <Link href="/guides/deleted-tweets" className="text-primary hover:underline">
-                Deleted Tweets Guides
+                Deleted Tweets hub
+              </Link>
+              , or the{" "}
+              <Link
+                href="/use-cases/journalists-verify-deleted-statements"
+                className="text-primary hover:underline"
+              >
+                newsroom verification page
               </Link>
               .
             </p>

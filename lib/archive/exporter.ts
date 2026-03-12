@@ -1,6 +1,16 @@
-import { FIELD_OPTIONS, type FieldOption, type InstagramFieldOption } from "./constants";
+import { FIELD_OPTIONS, type FieldOption, type InstagramFieldOption, type RedditFieldOption } from "./constants";
 import { buildTweetsHtml } from "./html";
-import type { ExportBundle, InstagramExportBundle, ParsedInstagramPost, ParsedInstagramPostsResult, ParsedTweet, ParsedTweetsResult } from "./types";
+import type {
+  ExportBundle,
+  InstagramExportBundle,
+  ParsedInstagramPost,
+  ParsedInstagramPostsResult,
+  ParsedRedditCapture,
+  ParsedRedditCapturesResult,
+  ParsedTweet,
+  ParsedTweetsResult,
+  RedditExportBundle,
+} from "./types";
 
 // Overload for Twitter
 export function buildExportBundle(
@@ -14,18 +24,32 @@ export function buildExportBundle(
   fieldOptions: readonly InstagramFieldOption[]
 ): InstagramExportBundle;
 
+// Overload for Reddit
+export function buildExportBundle(
+  result: ParsedRedditCapturesResult,
+  fieldOptions: readonly RedditFieldOption[],
+  filenameLabel: string,
+  htmlTitle: string
+): RedditExportBundle;
+
 // Implementation
 export function buildExportBundle(
-  result: ParsedTweetsResult | ParsedInstagramPostsResult,
-  fieldOptions: readonly FieldOption[] | readonly InstagramFieldOption[] = FIELD_OPTIONS
-): ExportBundle | InstagramExportBundle {
+  result: ParsedTweetsResult | ParsedInstagramPostsResult | ParsedRedditCapturesResult,
+  fieldOptions: readonly FieldOption[] | readonly InstagramFieldOption[] | readonly RedditFieldOption[] = FIELD_OPTIONS,
+  filenameLabel = "tweets",
+  htmlTitle?: string
+): ExportBundle | InstagramExportBundle | RedditExportBundle {
   const columns = Array.from(new Set(fieldOptions));
   const normalizedTweets = normalizeTweets(result.tweets, columns);
+  const identifier = "username" in result ? result.username : result.target;
 
   const csv = buildCsv(normalizedTweets, columns);
   const json = JSON.stringify(normalizedTweets, null, 2);
-  const html = buildTweetsHtml(result.username, normalizedTweets);
-  const filename = buildFilename(result.username);
+  const html = buildTweetsHtml(identifier, normalizedTweets, {
+    title: htmlTitle,
+    summaryLabel: `Total captures: ${normalizedTweets.length}`,
+  });
+  const filename = buildFilename(identifier, filenameLabel);
 
   return {
     ...result,
@@ -38,9 +62,9 @@ export function buildExportBundle(
 }
 
 function normalizeTweets(
-  tweets: (ParsedTweet | ParsedInstagramPost)[],
-  columns: readonly (FieldOption | InstagramFieldOption)[]
-): (ParsedTweet | ParsedInstagramPost)[] {
+  tweets: (ParsedTweet | ParsedInstagramPost | ParsedRedditCapture)[],
+  columns: readonly (FieldOption | InstagramFieldOption | RedditFieldOption)[]
+): (ParsedTweet | ParsedInstagramPost | ParsedRedditCapture)[] {
   return tweets.map((tweet) => {
     const normalized: Record<string, string | boolean | null> = {};
     columns.forEach((column) => {
@@ -55,8 +79,8 @@ function normalizeTweets(
 }
 
 function buildCsv(
-  tweets: (ParsedTweet | ParsedInstagramPost)[],
-  columns: readonly (FieldOption | InstagramFieldOption)[]
+  tweets: (ParsedTweet | ParsedInstagramPost | ParsedRedditCapture)[],
+  columns: readonly (FieldOption | InstagramFieldOption | RedditFieldOption)[]
 ): string {
   const header = columns.join(",");
   const rows = tweets.map((tweet) =>
@@ -77,7 +101,7 @@ function formatCsvCell(value: string | boolean | null | undefined): string {
   return stringValue;
 }
 
-function buildFilename(username: string): string {
+function buildFilename(username: string, label: string): string {
   const now = new Date();
   const parts = [
     now.getFullYear().toString().padStart(4, "0"),
@@ -88,5 +112,10 @@ function buildFilename(username: string): string {
     now.getSeconds().toString().padStart(2, "0"),
   ];
   const formatted = parts.join("");
-  return `${username}_tweets_${formatted}`;
+  const safeIdentifier =
+    username
+      .trim()
+      .replace(/[^a-z0-9._-]+/gi, "-")
+      .replace(/^-+|-+$/g, "") || "archive";
+  return `${safeIdentifier}_${label}_${formatted}`;
 }

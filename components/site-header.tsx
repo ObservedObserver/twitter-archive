@@ -8,7 +8,8 @@ export function SiteHeader() {
 
   const links = [
     { href: "/", label: "Twitter Archive" },
-    { href: "/guides/deleted-tweets", label: "Guides" },
+    { href: "/archive-reddit", label: "Reddit Archive" },
+    { href: "/guides", label: "Guides" },
     { href: "/archive-instagram", label: "Instagram Archive" },
   ];
 

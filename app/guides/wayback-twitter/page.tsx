@@ -2,40 +2,40 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageShell } from "@/components/page-shell";
-import { deletedTweetsGuideSlugs, getGuidesBySlugs } from "@/lib/guides";
+import { getGuidesBySlugs, waybackTwitterGuideSlugs } from "@/lib/guides";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
-const pageTitle = "Deleted Tweets Guides Hub";
+const pageTitle = "Wayback Twitter Guides Hub";
 const pageDescription =
-  "Browse Xarchive guides for finding, viewing, and exporting deleted tweet captures from Internet Archive CDX data.";
+  "Browse Xarchive guides for using Wayback Machine with Twitter profiles, accounts, and archived posts.";
 
 export const metadata: Metadata = {
   title: pageTitle,
   description: pageDescription,
   alternates: {
-    canonical: `${SITE_URL}/guides/deleted-tweets`,
+    canonical: `${SITE_URL}/guides/wayback-twitter`,
   },
   openGraph: {
     title: `${pageTitle} | ${SITE_NAME}`,
     description: pageDescription,
-    url: `${SITE_URL}/guides/deleted-tweets`,
+    url: `${SITE_URL}/guides/wayback-twitter`,
     siteName: SITE_NAME,
     type: "website",
   },
 };
 
-export default function DeletedTweetsGuidesHubPage() {
-  const guides = getGuidesBySlugs(deletedTweetsGuideSlugs);
+export default function WaybackTwitterGuidesHubPage() {
+  const guides = getGuidesBySlugs(waybackTwitterGuideSlugs);
 
   return (
     <PageShell
-      title="Deleted Tweets Guides"
-      subtitle="Start here for practical workflows to search archived tweets, verify deletions, and export evidence."
+      title="Wayback Twitter Guides"
+      subtitle="Use these workflows when profile history, account snapshots, and archive navigation matter more than a single tweet lookup."
     >
       <section className="space-y-3">
         <p className="text-muted-foreground">
-          This hub groups Xarchive guides for deleted tweet research. Each page includes a direct tool
-          CTA, export workflow, and a data source disclosure.
+          This hub groups guides for broader Wayback Machine Twitter research. It is the best starting
+          point when you are mapping account history, navigating profile captures, or teaching a repeatable archive workflow.
         </p>
         <p className="rounded-lg border bg-muted/20 p-4 text-sm text-muted-foreground">
           <span className="font-medium text-foreground">Data source:</span> Internet Archive CDX
@@ -48,7 +48,7 @@ export default function DeletedTweetsGuidesHubPage() {
           >
             https://web.archive.org/cdx/search/cdx
           </a>
-          ).
+          ). Results depend on what was publicly crawled.
         </p>
       </section>
 
@@ -71,11 +71,11 @@ export default function DeletedTweetsGuidesHubPage() {
       <section className="space-y-3">
         <h2 className="text-xl font-semibold">Next Step</h2>
         <p className="text-muted-foreground">
-          Need broader Wayback workflows? Continue with the Twitter archive cluster or jump into the tool.
+          For direct deleted-tweet recovery, switch back to the deleted tweets cluster or run your search in the tool.
         </p>
         <div className="flex flex-wrap gap-4">
-          <Link href="/guides/wayback-twitter" className="text-primary hover:underline">
-            Browse Wayback Twitter Guides
+          <Link href="/guides/deleted-tweets" className="text-primary hover:underline">
+            Browse Deleted Tweets Guides
           </Link>
           <Link href="/" className="text-primary hover:underline">
             Open Xarchive Tool

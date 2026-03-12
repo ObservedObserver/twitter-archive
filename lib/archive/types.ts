@@ -1,4 +1,4 @@
-import type { FieldOption, InstagramFieldOption } from "./constants";
+import type { FieldOption, InstagramFieldOption, RedditFieldOption } from "./constants";
 
 export interface ArchiveQueryOptions {
   username: string;
@@ -48,6 +48,19 @@ export interface ParsedInstagramPostsResult {
   resumptionKey?: string | null;
 }
 
+export type RedditTargetType = "subreddit" | "user" | "url";
+
+export type ParsedRedditCapture = Partial<Record<RedditFieldOption, string | boolean | null>>;
+
+export interface ParsedRedditCapturesResult {
+  tweets: ParsedRedditCapture[];
+  total: number;
+  target: string;
+  targetType: RedditTargetType;
+  showResumeKey: boolean;
+  resumptionKey?: string | null;
+}
+
 export interface ExportBundle extends ParsedTweetsResult {
   csv: string;
   json: string;
@@ -56,6 +69,13 @@ export interface ExportBundle extends ParsedTweetsResult {
 }
 
 export interface InstagramExportBundle extends ParsedInstagramPostsResult {
+  csv: string;
+  json: string;
+  html: string;
+  filename: string;
+}
+
+export interface RedditExportBundle extends ParsedRedditCapturesResult {
   csv: string;
   json: string;
   html: string;
