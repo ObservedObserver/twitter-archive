@@ -37,6 +37,7 @@ export function generateMetadata({ params }: GuideArticlePageProps): Metadata {
   return {
     title: guide.title,
     description: guide.description,
+    keywords: guide.keywords,
     alternates: {
       canonical,
     },
@@ -46,6 +47,11 @@ export function generateMetadata({ params }: GuideArticlePageProps): Metadata {
       url: canonical,
       siteName: SITE_NAME,
       type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${guide.title} | ${SITE_NAME}`,
+      description: guide.description,
     },
   };
 }

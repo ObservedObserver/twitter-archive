@@ -21,6 +21,24 @@ const guides = [
     description:
       "Use the Wayback Machine for Reddit verification, timeline review, and exported evidence capture.",
   },
+  {
+    href: "/guides/archive-reddit-post",
+    title: "Archive Reddit Post",
+    description:
+      "Use a clean URL-first workflow for live capture, Wayback verification, and export-ready Reddit evidence.",
+  },
+  {
+    href: "/guides/save-reddit-thread-offline",
+    title: "Save Reddit Thread Offline",
+    description:
+      "Choose the right offline Reddit preservation path for readable review or structured export.",
+  },
+  {
+    href: "/guides/reddit-json-export",
+    title: "Reddit JSON Export",
+    description:
+      "Use JSON export when you need machine-readable Reddit archive results with traceable provenance.",
+  },
 ];
 
 export const metadata: Metadata = {
@@ -47,7 +65,8 @@ export default function RedditArchivesGuidesHubPage() {
       <section className="space-y-3">
         <p className="text-muted-foreground">
           This hub groups Reddit-specific workflows for archive research. Each page is written to support both
-          search-driven SEO entry points and direct tool conversion into the Reddit archive explorer.
+          search-driven SEO entry points and direct tool conversion into the Reddit archive explorer, including newer
+          task-driven pages around offline thread saving and JSON export.
         </p>
         <p className="rounded-lg border bg-muted/20 p-4 text-sm text-muted-foreground">
           <span className="font-medium text-foreground">Data source:</span> Internet Archive CDX index (

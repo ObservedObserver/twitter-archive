@@ -136,11 +136,57 @@ export default function HowToSearchRedditArchivesPage() {
             Open Reddit Archive Tool
           </Link>
           <Link
-            href="/guides/wayback-machine-reddit"
+            href="/guides/reddit-archives"
             className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted"
           >
-            Read Wayback Reddit Guide
+            Browse Reddit Guides Hub
           </Link>
+        </div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold">Related Reddit Workflows</h2>
+        <div className="grid gap-3 md:grid-cols-2">
+          <article className="rounded-lg border p-4">
+            <h3 className="font-medium">
+              <Link href="/guides/wayback-machine-reddit" className="text-primary hover:underline">
+                Wayback Machine Reddit Guide
+              </Link>
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Move from discovery into a stricter verification and export workflow.
+            </p>
+          </article>
+          <article className="rounded-lg border p-4">
+            <h3 className="font-medium">
+              <Link href="/guides/archive-reddit-post" className="text-primary hover:underline">
+                Archive Reddit Post
+              </Link>
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Best next step when the research target is one post or thread instead of a broader archive search.
+            </p>
+          </article>
+          <article className="rounded-lg border p-4">
+            <h3 className="font-medium">
+              <Link href="/guides/save-reddit-thread-offline" className="text-primary hover:underline">
+                Save Reddit Thread Offline
+              </Link>
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Compare the best formats and workflows for readable offline thread preservation.
+            </p>
+          </article>
+          <article className="rounded-lg border p-4">
+            <h3 className="font-medium">
+              <Link href="/guides/reddit-json-export" className="text-primary hover:underline">
+                Reddit JSON Export
+              </Link>
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Use JSON-first export when you care more about structure than page layout.
+            </p>
+          </article>
         </div>
       </section>
 

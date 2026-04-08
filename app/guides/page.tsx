@@ -5,6 +5,7 @@ import { PageShell } from "@/components/page-shell";
 import {
   deletedTweetsGuideSlugs,
   getGuidesBySlugs,
+  instagramGuideSlugs,
   waybackTwitterGuideSlugs,
 } from "@/lib/guides";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
@@ -37,6 +38,13 @@ const sections = [
     guides: getGuidesBySlugs(deletedTweetsGuideSlugs),
   },
   {
+    title: "Instagram Archive",
+    description:
+      "Guides for Instagram profile history, deleted-post verification, and archive search workflows.",
+    href: "/guides/instagram-archives",
+    guides: getGuidesBySlugs(instagramGuideSlugs),
+  },
+  {
     title: "Wayback Twitter",
     description:
       "Guides for profile snapshots, archive navigation, and broader Twitter research in the Wayback Machine.",
@@ -61,6 +69,24 @@ const sections = [
         description:
           "Use the Wayback Machine for Reddit verification, review, and exported evidence capture.",
       },
+      {
+        slug: "archive-reddit-post",
+        title: "Archive Reddit Post",
+        description:
+          "Capture, verify, and export archived Reddit posts with a cleaner workflow.",
+      },
+      {
+        slug: "save-reddit-thread-offline",
+        title: "Save Reddit Thread Offline",
+        description:
+          "Choose the right offline Reddit preservation path for readable review or structured export.",
+      },
+      {
+        slug: "reddit-json-export",
+        title: "Reddit JSON Export",
+        description:
+          "Use JSON export when you need structured Reddit archive data instead of just a visual copy.",
+      },
     ],
   },
 ];
@@ -74,7 +100,8 @@ export default function GuidesIndexPage() {
       <section className="space-y-3">
         <p className="text-muted-foreground">
           The guide library is organized by search intent. Start with deleted-tweet recovery if you need
-          direct verification, or use the Wayback Twitter cluster when the job is profile history and archive navigation.
+          direct verification, use the Instagram cluster when the job is profile/post history, or use the Reddit cluster
+          when you need subreddit, thread, or user-page archive workflows.
         </p>
         <p className="rounded-lg border bg-muted/20 p-4 text-sm text-muted-foreground">
           <span className="font-medium text-foreground">Data source:</span> Internet Archive CDX

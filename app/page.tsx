@@ -3,10 +3,47 @@ import Script from "next/script";
 import Link from "next/link";
 
 import ArchiveTool from "@/components/archive-tool";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const pageTitle = "Free Twitter Archive Viewer & Downloader | Xarchive";
 const pageDescription =
   "Explore and download Twitter archive snapshots instantly. Xarchive lets you search, preview, and export Twitter data saved on the Wayback Machine in HTML, CSV, or JSON formats.";
+
+const topTwitterGuides = [
+  {
+    href: "/guides/find-deleted-tweets",
+    title: "Find Deleted Tweets",
+    description: "URL-first workflow for deleted tweet recovery and validation.",
+  },
+  {
+    href: "/guides/how-to-use-wayback-machine-for-twitter",
+    title: "Use Wayback for Twitter",
+    description: "Best starting point for profile history and archive navigation.",
+  },
+  {
+    href: "/guides/archived-tweets-viewer",
+    title: "Archived Tweets Viewer",
+    description: "Guide for faster capture review and export-ready archive verification.",
+  },
+];
+
+const bestUseCases = [
+  {
+    title: "Newsroom verification",
+    description: "Verify deleted statements with timestamps and exportable evidence.",
+    href: "/use-cases/journalists-verify-deleted-statements",
+  },
+  {
+    title: "Deleted tweet recovery",
+    description: "Confirm whether a tweet or account was captured publicly before deletion.",
+    href: "/guides/deleted-tweets",
+  },
+  {
+    title: "Wayback research",
+    description: "Map profile history and archive coverage without digging through raw CDX output.",
+    href: "/guides/wayback-twitter",
+  },
+];
 
 const faqEntries = [
   {
@@ -39,19 +76,107 @@ const faqJsonLd = {
   })),
 };
 
+const appJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Xarchive Twitter Archive Explorer",
+  applicationCategory: "UtilitiesApplication",
+  operatingSystem: "Any",
+  url: SITE_URL,
+  description: pageDescription,
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+};
+
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to search Twitter archives with Xarchive",
+  description:
+    "Search public Wayback Machine captures for a tweet or profile URL, validate the best timestamps, and export the verified results.",
+  totalTime: "PT5M",
+  tool: [
+    {
+      "@type": "HowToTool",
+      name: "Xarchive Twitter Archive Explorer",
+    },
+  ],
+  step: [
+    {
+      "@type": "HowToStep",
+      name: "Choose the target URL",
+      text: "Start with the tweet URL when you have it, or use a profile URL as a fallback for broader archive history.",
+      url: SITE_URL,
+    },
+    {
+      "@type": "HowToStep",
+      name: "Search the archive",
+      text: "Run the query in Xarchive to surface matching Internet Archive CDX records.",
+      url: SITE_URL,
+    },
+    {
+      "@type": "HowToStep",
+      name: "Narrow by date",
+      text: "Use the date range controls to reduce noisy captures and focus on the event window.",
+      url: SITE_URL,
+    },
+    {
+      "@type": "HowToStep",
+      name: "Validate captures",
+      text: "Open the archive timestamps nearest to the event and compare nearby captures before citing them.",
+      url: SITE_URL,
+    },
+    {
+      "@type": "HowToStep",
+      name: "Export the final set",
+      text: "Export the validated archive results in HTML, CSV, or JSON for review or analysis.",
+      url: SITE_URL,
+    },
+  ],
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: SITE_URL,
+    },
+  ],
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://xarchive.net"),
+  metadataBase: new URL(SITE_URL),
   title: pageTitle,
   description: pageDescription,
+  keywords: [
+    "twitter archive",
+    "twitter archive viewer",
+    "deleted tweets",
+    "wayback machine twitter",
+    "archived tweets viewer",
+    "twitter archive downloader",
+  ],
   alternates: {
-    canonical: "https://xarchive.net",
+    canonical: SITE_URL,
   },
   openGraph: {
     title: pageTitle,
     description: pageDescription,
-    url: "https://xarchive.net",
-    siteName: "Xarchive",
+    url: SITE_URL,
+    siteName: SITE_NAME,
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: pageTitle,
+    description: pageDescription,
   },
 };
 
@@ -99,6 +224,40 @@ export default function Home() {
 
         <div className="mx-auto max-w-5xl px-4 pt-16 pb-16 flex flex-col gap-10">
           <section className="space-y-4 rounded-lg border p-5">
+            <h2 className="text-2xl font-semibold">Start Here</h2>
+            <p className="text-muted-foreground">
+              Use the tool when you already have a tweet or profile URL. Use the guide cluster when you need a repeatable workflow,
+              better query phrasing, or a clean handoff path for another person.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/guides/deleted-tweets"
+                className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
+              >
+                Browse Deleted Tweets Guides
+              </Link>
+              <Link
+                href="/guides/wayback-twitter"
+                className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted"
+              >
+                Browse Wayback Twitter Guides
+              </Link>
+            </div>
+          </section>
+
+          <section className="space-y-4 rounded-lg border p-5">
+            <h2 className="text-2xl font-semibold">Best Use Cases</h2>
+            <div className="grid gap-3 md:grid-cols-3">
+              {bestUseCases.map((item) => (
+                <Link key={item.title} href={item.href} className="rounded-lg border p-4 hover:bg-muted/40">
+                  <h3 className="font-medium">{item.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-4 rounded-lg border p-5">
             <h2 className="text-2xl font-semibold">Start With a Proven Workflow</h2>
             <p className="text-muted-foreground">
               Most visits currently land on the tool first. If you also need a repeatable method, jump straight
@@ -129,6 +288,18 @@ export default function Home() {
                   Evidence workflow for editors, reporters, and fact-checkers.
                 </p>
               </Link>
+            </div>
+          </section>
+
+          <section className="space-y-4 rounded-lg border p-5">
+            <h2 className="text-2xl font-semibold">Top Related Guides</h2>
+            <div className="grid gap-3 md:grid-cols-3">
+              {topTwitterGuides.map((guide) => (
+                <Link key={guide.href} href={guide.href} className="rounded-lg border p-4 hover:bg-muted/40">
+                  <h3 className="font-medium">{guide.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{guide.description}</p>
+                </Link>
+              ))}
             </div>
           </section>
 
@@ -190,6 +361,21 @@ export default function Home() {
         id="faq-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <Script
+        id="app-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }}
+      />
+      <Script
+        id="howto-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
+      <Script
+        id="breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
     </main>
   );

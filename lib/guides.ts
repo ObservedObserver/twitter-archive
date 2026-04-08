@@ -18,6 +18,8 @@ export type GuideDefinition = {
   commonIssues: GuideIssue[];
   faq: GuideFaq[];
   relatedSlugs: string[];
+  topic?: "twitter" | "instagram" | "reddit";
+  keywords?: string[];
 };
 
 export const deletedTweetsGuideSlugs = [
@@ -37,6 +39,22 @@ export const waybackTwitterGuideSlugs = [
   "wayback-machine-deleted-tweets",
   "wayback-machine-twitter-accounts",
   "how-to-use-wayback-machine-for-twitter",
+];
+
+export const instagramGuideSlugs = [
+  "how-to-search-instagram-archives",
+  "wayback-machine-instagram",
+  "view-deleted-instagram-posts",
+  "archive-instagram-posts",
+  "find-old-instagram-posts",
+];
+
+export const redditGuideSlugs = [
+  "how-to-search-reddit-archives",
+  "wayback-machine-reddit",
+  "archive-reddit-post",
+  "save-reddit-thread-offline",
+  "reddit-json-export",
 ];
 
 const guideDefinitions: GuideDefinition[] = [
@@ -274,9 +292,9 @@ const guideDefinitions: GuideDefinition[] = [
     description:
       "Find deleted Twitter posts with a URL-first workflow built on Internet Archive CDX captures.",
     intro:
-      "Some searchers use tweet and post interchangeably. This guide targets that wording while keeping the workflow grounded in public archive evidence.",
+      "Some searchers use tweet and post interchangeably. This page is tuned for that wording, but the job is still the same: start with the most specific URL you have, validate the best timestamps, and keep a clean exportable evidence trail.",
     quickAnswer:
-      "To find deleted Twitter posts, search the original tweet URL or profile URL in Xarchive, narrow the date window, then validate the closest archived captures.",
+      "To find deleted Twitter posts, search the original tweet URL or profile URL in Xarchive, narrow the date window to the likely event period, compare nearby captures, and export the validated results you plan to cite.",
     steps: [
       "Collect the original tweet URL if available, and keep the profile URL as a fallback.",
       "Run the search in Xarchive to retrieve matching CDX rows.",
@@ -310,7 +328,7 @@ const guideDefinitions: GuideDefinition[] = [
       {
         question: "Can I search by date only?",
         answer:
-          "Date filters help, but a tweet or profile URL is still the strongest starting point.",
+          "Date filters help, but a tweet or profile URL is still the strongest starting point because it cuts noise and improves the capture trail.",
       },
       {
         question: "What should I save for later verification?",
@@ -502,9 +520,9 @@ const guideDefinitions: GuideDefinition[] = [
     description:
       "Practical workflow to find deleted tweets from archived snapshots using Xarchive.",
     intro:
-      "When a tweet disappears, archived captures are the fastest way to check if a public copy still exists. This page focuses on a search-first workflow.",
+      "When a tweet disappears, archived captures are usually the fastest way to check whether a public copy still exists. This page is built for searchers who want the shortest path from URL to a validated archived result set.",
     quickAnswer:
-      "To find deleted tweets, search the original URL or profile in Xarchive, narrow by date, then review and export matching Internet Archive CDX captures.",
+      "To find deleted tweets, search the original tweet URL or profile URL in Xarchive, narrow the date range to the suspected deletion window, compare nearby archive timestamps, and export the verified captures.",
     steps: [
       "Start with the most specific input you have: tweet URL first, profile URL second.",
       "Run search in Xarchive and sort captures by timestamp to identify pre-deletion copies.",
@@ -538,7 +556,7 @@ const guideDefinitions: GuideDefinition[] = [
       {
         question: "How reliable are archived captures?",
         answer:
-          "Reliability depends on crawl timing and page completeness, so validate across multiple close timestamps when possible.",
+          "Reliability depends on crawl timing and page completeness, so compare multiple nearby timestamps whenever possible instead of relying on a single capture.",
       },
       {
         question: "Can this help find tweets from someone else?",
@@ -559,7 +577,7 @@ const guideDefinitions: GuideDefinition[] = [
     description:
       "Step-by-step tutorial for finding deleted tweets with date filters, validation, and exports.",
     intro:
-      "This walkthrough is designed for repeatable research. It emphasizes traceable steps so you can defend the result quality.",
+      "This walkthrough is designed for repeatable research and stronger handoffs. It emphasizes traceable steps so another person can review the same timestamps, exports, and conclusions without reconstructing your process.",
     quickAnswer:
       "Find deleted tweets by combining URL-based lookup, precise date windows, and timestamp verification across multiple archive captures.",
     steps: [
@@ -787,9 +805,9 @@ const guideDefinitions: GuideDefinition[] = [
     description:
       "Use Wayback Machine for Twitter research with a repeatable Xarchive workflow for profiles and tweets.",
     intro:
-      "This guide is for users who understand Wayback Machine at a high level but need a practical Twitter-specific process.",
+      "This guide is for users who understand Wayback Machine at a high level but need a practical Twitter-specific process that starts from search intent and ends with a clean exported evidence bundle.",
     quickAnswer:
-      "Use Xarchive to query Internet Archive CDX records for Twitter URLs, focus on the right date range, and validate captures before exporting results.",
+      "Use Xarchive to query Internet Archive CDX records for Twitter URLs, narrow to the right date range, compare the strongest timestamps, and export the validated captures in a format that fits your workflow.",
     steps: [
       "Decide whether you need a tweet-level lookup, profile-level lookup, or both.",
       "Paste the target Twitter URL into Xarchive and run the CDX search.",
@@ -828,7 +846,7 @@ const guideDefinitions: GuideDefinition[] = [
       {
         question: "What is the main limitation?",
         answer:
-          "The archive only shows what was publicly crawled, so missing captures are a normal limitation.",
+          "The archive only shows what was publicly crawled, so missing captures are normal and should be treated as archive gaps rather than proof that a post never existed.",
       },
     ],
     relatedSlugs: [
@@ -836,6 +854,513 @@ const guideDefinitions: GuideDefinition[] = [
       "wayback-machine-twitter-accounts",
       "archived-twitter-posts",
       "find-deleted-tweets",
+    ],
+  },
+  {
+    slug: "how-to-search-instagram-archives",
+    title: "How to Search Instagram Archives",
+    description:
+      "Search Instagram archives by username or direct URL with a practical Xarchive workflow built on Internet Archive CDX data.",
+    intro:
+      "Instagram archive search works best when you start with a clear target. Username lookups are best for broad profile history, while a direct Instagram URL is stronger when you need to verify one post or profile page quickly.",
+    quickAnswer:
+      "Enter an Instagram username or direct post/profile URL into Xarchive, narrow the date range to the period you care about, inspect the nearest Wayback captures, and export the results you want to keep.",
+    steps: [
+      "Choose username mode for broad profile history or a direct URL when you need exact verification.",
+      "Paste the Instagram target into Xarchive and run the archive lookup.",
+      "Apply a date range around the event window to reduce noisy captures.",
+      "Open the archive timestamps closest to the date you care about and compare nearby captures.",
+      "Export the validated set in HTML, CSV, or JSON for handoff or analysis.",
+    ],
+    commonIssues: [
+      {
+        title: "Username results are broad",
+        description:
+          "Tighten the date window or switch to a direct post URL when you already know the target page.",
+      },
+      {
+        title: "The capture exists but media is incomplete",
+        description:
+          "Treat the page text, timestamp, and metadata as primary evidence and note media gaps separately.",
+      },
+      {
+        title: "No captures appear in the expected week",
+        description:
+          "Expand the date range because public crawls often happened before or after the date you expect.",
+      },
+    ],
+    faq: [
+      {
+        question: "Can I search archived Instagram stories?",
+        answer:
+          "Sometimes, but story coverage depends on whether a public capture preserved them before they expired.",
+      },
+      {
+        question: "What works best for Instagram archive search: username or URL?",
+        answer:
+          "A direct URL is best for exact verification, while usernames are stronger for profile history and broader discovery.",
+      },
+      {
+        question: "Can I export Instagram archive results from Xarchive?",
+        answer:
+          "Yes. Xarchive supports HTML, CSV, and JSON export for Instagram archive results.",
+      },
+    ],
+    relatedSlugs: [
+      "wayback-machine-instagram",
+      "view-deleted-instagram-posts",
+      "archive-instagram-posts",
+      "find-old-instagram-posts",
+    ],
+    topic: "instagram",
+    keywords: [
+      "search instagram archives",
+      "instagram archive search",
+      "instagram wayback search",
+      "archived instagram posts",
+    ],
+  },
+  {
+    slug: "wayback-machine-instagram",
+    title: "Wayback Machine Instagram Guide",
+    description:
+      "Use the Wayback Machine for Instagram research with a repeatable workflow for profiles, posts, and archived evidence.",
+    intro:
+      "When users search for Wayback Machine Instagram help, they usually need a simple process for checking whether a profile or post was publicly captured and how to validate the best timestamp afterwards.",
+    quickAnswer:
+      "Use Xarchive to search Wayback Machine CDX records for an Instagram username or URL, compare nearby timestamps, and export the captures that match your verification task.",
+    steps: [
+      "Collect the Instagram username, post URL, or profile URL tied to the event you are researching.",
+      "Run the target in Xarchive and narrow the timeline with date filters.",
+      "Inspect the returned archive rows and open the timestamps nearest to the event window.",
+      "Compare nearby captures when you need stronger verification or context.",
+      "Export the final evidence set in the format your workflow needs.",
+    ],
+    commonIssues: [
+      {
+        title: "Wayback has sparse Instagram coverage",
+        description:
+          "Public Instagram archive coverage is uneven, so check adjacent dates instead of assuming one missing day means no archive exists.",
+      },
+      {
+        title: "The exact post URL is missing",
+        description:
+          "Profile captures can still preserve useful context or confirm that the account was active during the period you care about.",
+      },
+      {
+        title: "Need something you can hand to another person fast",
+        description:
+          "HTML export is usually the fastest format for editors, clients, or investigators to review.",
+      },
+    ],
+    faq: [
+      {
+        question: "Can Wayback Machine show deleted Instagram posts?",
+        answer:
+          "Sometimes. It depends on whether the post page was publicly archived before it was removed.",
+      },
+      {
+        question: "Should I start with a profile URL or a post URL?",
+        answer:
+          "Use a post URL first when you have it. Use a profile URL when you need broader account history or context.",
+      },
+      {
+        question: "What should I keep from an Instagram archive capture?",
+        answer:
+          "Keep the original Instagram URL, the archive capture URL, and the archive timestamp together for later verification.",
+      },
+    ],
+    relatedSlugs: [
+      "how-to-search-instagram-archives",
+      "view-deleted-instagram-posts",
+      "find-old-instagram-posts",
+      "archive-instagram-posts",
+    ],
+    topic: "instagram",
+    keywords: [
+      "wayback machine instagram",
+      "instagram wayback machine",
+      "instagram archive guide",
+      "instagram archive viewer",
+    ],
+  },
+  {
+    slug: "view-deleted-instagram-posts",
+    title: "View Deleted Instagram Posts",
+    description:
+      "Learn how to view deleted Instagram posts by validating public archive captures with Xarchive.",
+    intro:
+      "Viewing deleted Instagram posts reliably is mostly a timestamp and verification problem. The goal is to find whether a public archive capture exists, then compare nearby snapshots before citing it.",
+    quickAnswer:
+      "To view deleted Instagram posts, search the original Instagram post URL or profile URL in Xarchive, inspect the nearest Wayback captures around the deletion window, and export the validated results.",
+    steps: [
+      "Start with the original Instagram post URL whenever possible.",
+      "Search the URL in Xarchive and review the returned archive timestamps.",
+      "Open the captures nearest to the suspected deletion date and compare nearby versions.",
+      "Use profile-level captures for extra context if the direct post page is sparse.",
+      "Export the final proof set in HTML, CSV, or JSON.",
+    ],
+    commonIssues: [
+      {
+        title: "Only one capture is available",
+        description:
+          "Keep the timestamped capture, but look for profile-level captures to add context before drawing conclusions.",
+      },
+      {
+        title: "The page loads but the media asset is gone",
+        description:
+          "Preserve the archive timestamp, URL, and visible metadata because media completeness varies across captures.",
+      },
+      {
+        title: "The exact deletion date is unknown",
+        description:
+          "Search a wider window and use adjacent captures to reconstruct when visibility changed.",
+      },
+    ],
+    faq: [
+      {
+        question: "Can I see deleted Instagram posts from any account?",
+        answer:
+          "Only if public captures exist. Private content or uncrawled pages will not appear in public archive results.",
+      },
+      {
+        question: "Does Xarchive host deleted Instagram posts itself?",
+        answer:
+          "No. Xarchive searches existing Internet Archive CDX records and helps you inspect the captures that already exist.",
+      },
+      {
+        question: "What is the best export format for proof?",
+        answer:
+          "HTML is usually fastest for human review, while CSV and JSON are better for structured documentation.",
+      },
+    ],
+    relatedSlugs: [
+      "how-to-search-instagram-archives",
+      "wayback-machine-instagram",
+      "archive-instagram-posts",
+      "find-old-instagram-posts",
+    ],
+    topic: "instagram",
+    keywords: [
+      "view deleted instagram posts",
+      "see deleted instagram posts",
+      "instagram deleted post archive",
+    ],
+  },
+  {
+    slug: "archive-instagram-posts",
+    title: "Archive Instagram Posts",
+    description:
+      "Use Xarchive and Wayback Machine workflows to archive Instagram posts, review captures, and export results.",
+    intro:
+      "People searching how to archive Instagram posts usually mean one of two things: save a public page into a web archive, or find and export captures that already exist. This page covers both paths with Xarchive at the center of the review workflow.",
+    quickAnswer:
+      "Archive Instagram posts by saving live URLs to the Wayback Machine when needed, then use Xarchive to search existing captures, validate the best timestamps, and export the results in a usable format.",
+    steps: [
+      "If the Instagram post is still live and not archived yet, save it with Wayback Machine first.",
+      "Search the post or profile URL in Xarchive to review capture history.",
+      "Compare nearby timestamps to find the strongest snapshot for your use case.",
+      "Keep the original URL, archive URL, and timestamp together in your notes.",
+      "Export the final archive set in HTML, CSV, or JSON.",
+    ],
+    commonIssues: [
+      {
+        title: "Users confuse saving a page with searching archives",
+        description:
+          "Live capture and archive lookup are different jobs. Save live content first, then use Xarchive to inspect the archive record later.",
+      },
+      {
+        title: "Archived page exists but content looks partial",
+        description:
+          "Review adjacent timestamps and preserve visible metadata even when full media is not available.",
+      },
+      {
+        title: "Need a repeatable workflow for a team",
+        description:
+          "Standardize on URL, archive timestamp, and export format so every handoff uses the same evidence bundle.",
+      },
+    ],
+    faq: [
+      {
+        question: "Can Xarchive create a fresh Instagram archive capture by itself?",
+        answer:
+          "No. Xarchive searches existing archive records. Use the Wayback Machine or another capture tool when you need a new live-page save.",
+      },
+      {
+        question: "What is the best format for archived Instagram posts?",
+        answer:
+          "HTML is best for quick review, CSV is best for spreadsheets, and JSON is best for structured workflows or engineering tasks.",
+      },
+      {
+        question: "Can I archive a whole Instagram account with this workflow?",
+        answer:
+          "You can review archived profile captures, but complete account coverage depends on what was publicly archived over time.",
+      },
+    ],
+    relatedSlugs: [
+      "how-to-search-instagram-archives",
+      "wayback-machine-instagram",
+      "view-deleted-instagram-posts",
+      "find-old-instagram-posts",
+    ],
+    topic: "instagram",
+    keywords: [
+      "archive instagram posts",
+      "instagram archiver",
+      "instagram archive tool",
+      "save instagram posts to archive",
+    ],
+  },
+  {
+    slug: "find-old-instagram-posts",
+    title: "Find Old Instagram Posts",
+    description:
+      "Find old Instagram posts through archived profile and post captures using Xarchive and Wayback Machine data.",
+    intro:
+      "Finding old Instagram posts is usually a discovery problem rather than a deletion problem. The workflow works best when you combine profile history with direct post verification where possible.",
+    quickAnswer:
+      "To find old Instagram posts, search the profile or post URL in Xarchive, narrow the date range to the period you care about, inspect historical captures, and export the results that matter.",
+    steps: [
+      "Start with the profile URL when you need broad historical discovery.",
+      "Use direct post URLs when you already know the likely target content.",
+      "Apply date filters to focus on the time period you want to reconstruct.",
+      "Open the best archive timestamps and note when a post or profile state changes.",
+      "Export the final captures in the format that fits your review workflow.",
+    ],
+    commonIssues: [
+      {
+        title: "The account changed over time",
+        description:
+          "Use multiple captures across the period instead of relying on one timestamp to represent the whole account history.",
+      },
+      {
+        title: "Too many profile captures appear",
+        description:
+          "Work backward from the event window so you only open timestamps that can materially change your conclusion.",
+      },
+      {
+        title: "Need exact post confirmation after discovery",
+        description:
+          "Once you identify the likely post, switch to the direct post URL for a cleaner verification path.",
+      },
+    ],
+    faq: [
+      {
+        question: "Can I find old Instagram posts without the original URL?",
+        answer:
+          "Sometimes. Profile captures can help you discover older public posts, but exact post URLs usually make verification easier.",
+      },
+      {
+        question: "Are old Instagram posts always available in public archives?",
+        answer:
+          "No. Availability depends on whether the pages were publicly crawled and preserved.",
+      },
+      {
+        question: "What should I export when I find an old post?",
+        answer:
+          "Export the archive rows and keep the capture timestamp, archive URL, and original URL together for later use.",
+      },
+    ],
+    relatedSlugs: [
+      "how-to-search-instagram-archives",
+      "wayback-machine-instagram",
+      "view-deleted-instagram-posts",
+      "archive-instagram-posts",
+    ],
+    topic: "instagram",
+    keywords: [
+      "find old instagram posts",
+      "old instagram posts archive",
+      "instagram post history",
+    ],
+  },
+  {
+    slug: "archive-reddit-post",
+    title: "Archive Reddit Post",
+    description:
+      "Archive a Reddit post with a practical workflow for live capture, Wayback verification, and export in Xarchive.",
+    intro:
+      "People who search how to archive a Reddit post usually want either a fresh save of a live thread or a cleaner way to inspect archive history that already exists. This workflow covers both without mixing them together.",
+    quickAnswer:
+      "If the Reddit post is still live, save it with a live-capture tool first, then use Xarchive to search Wayback captures, compare timestamps, and export the archive record you want to keep.",
+    steps: [
+      "Copy the direct Reddit post URL whenever possible.",
+      "If you need a fresh preservation copy, save the live page first with a capture tool or Wayback Machine.",
+      "Search the post URL in Xarchive to inspect existing archive history.",
+      "Open the archive timestamps nearest to the event you care about and compare nearby captures.",
+      "Export the final result set in HTML, CSV, or JSON.",
+    ],
+    commonIssues: [
+      {
+        title: "Users expect archive search to create a new capture",
+        description:
+          "Archive lookup and live capture are different jobs. Xarchive handles lookup and export for captures that already exist.",
+      },
+      {
+        title: "Comment threads are incomplete",
+        description:
+          "Direct post pages usually preserve more context than comment URLs, but completeness still depends on the original capture.",
+      },
+      {
+        title: "Need a quick offline handoff",
+        description:
+          "HTML export is the fastest way to give another person a readable result set tied to exact archive timestamps.",
+      },
+    ],
+    faq: [
+      {
+        question: "Can Xarchive archive a live Reddit post by itself?",
+        answer:
+          "No. Xarchive searches existing archive records. Use Wayback Machine or another capture tool when you need a new live save.",
+      },
+      {
+        question: "What is the cleanest input for a Reddit archive lookup?",
+        answer:
+          "A direct Reddit post URL is the cleanest starting point because it aligns the capture list to one target page.",
+      },
+      {
+        question: "What should I export after archiving a Reddit post?",
+        answer:
+          "Keep the original Reddit URL, archive capture URL, timestamp, and the exported HTML, CSV, or JSON result set together.",
+      },
+    ],
+    relatedSlugs: [
+      "save-reddit-thread-offline",
+      "reddit-json-export",
+      "how-to-search-reddit-archives",
+      "wayback-machine-reddit",
+    ],
+    topic: "reddit",
+    keywords: [
+      "archive reddit post",
+      "reddit post archive",
+      "save reddit post archive",
+    ],
+  },
+  {
+    slug: "save-reddit-thread-offline",
+    title: "Save Reddit Thread Offline",
+    description:
+      "Save a Reddit thread offline with the right mix of live capture, archive lookup, and export-ready Xarchive workflows.",
+    intro:
+      "Offline Reddit preservation usually breaks into two separate goals: capture a readable copy for humans and preserve a structured record for later analysis. This page helps you choose the right workflow and then use Xarchive to verify the public archive history afterwards.",
+    quickAnswer:
+      "To save a Reddit thread offline, capture the live thread when needed, search existing Wayback records in Xarchive, compare timestamps for the strongest preserved version, and export the archive results in HTML, CSV, or JSON.",
+    steps: [
+      "Decide whether your main goal is readable offline viewing, structured data, or long-term preservation.",
+      "Use a live capture workflow first when the Reddit thread is still online and not yet archived publicly.",
+      "Search the Reddit thread URL in Xarchive to see what archive history already exists.",
+      "Open the strongest timestamps to verify what comments, media, and metadata were preserved.",
+      "Export the result set in the format that matches your handoff needs.",
+    ],
+    commonIssues: [
+      {
+        title: "PDF is easy but low fidelity",
+        description:
+          "Prefer HTML or structured export when you want more of the original page context and metadata.",
+      },
+      {
+        title: "Media or embeds are missing",
+        description:
+          "Archive completeness varies. Preserve the archive URL and timestamp even when media is incomplete.",
+      },
+      {
+        title: "Need structured comment data",
+        description:
+          "Pair offline HTML review with JSON export when you need machine-readable fields for later processing.",
+      },
+    ],
+    faq: [
+      {
+        question: "What is the best format for saving a Reddit thread offline?",
+        answer:
+          "HTML is the best balance for readable offline review, while JSON is stronger when you need structured data and downstream processing.",
+      },
+      {
+        question: "Can I save an entire Reddit thread as one file?",
+        answer:
+          "Sometimes. Single-file HTML tools are often the easiest path, but preserved completeness depends on the capture method and the page itself.",
+      },
+      {
+        question: "Where does Xarchive fit into this workflow?",
+        answer:
+          "Xarchive is strongest at searching, validating, and exporting existing public archive captures tied to a Reddit thread.",
+      },
+    ],
+    relatedSlugs: [
+      "archive-reddit-post",
+      "reddit-json-export",
+      "how-to-search-reddit-archives",
+      "wayback-machine-reddit",
+    ],
+    topic: "reddit",
+    keywords: [
+      "save reddit thread offline",
+      "reddit thread saver",
+      "offline reddit archive",
+    ],
+  },
+  {
+    slug: "reddit-json-export",
+    title: "Reddit JSON Export",
+    description:
+      "Use Reddit JSON export workflows for archived posts and threads, with Xarchive as the archive search and validation layer.",
+    intro:
+      "When users ask for Reddit JSON export, they usually care less about page layout and more about structured fields they can keep, filter, or process later. This page frames that workflow around archived Reddit captures and machine-readable output.",
+    quickAnswer:
+      "Search the Reddit URL in Xarchive, verify the best archived timestamps, and export the result set in JSON when you need structured Reddit archive data instead of a purely visual copy.",
+    steps: [
+      "Start with the direct Reddit post or thread URL.",
+      "Run the target in Xarchive and review the available archive timestamps.",
+      "Open the strongest captures to confirm the page and comment structure you need.",
+      "Choose JSON export when downstream analysis matters more than layout fidelity.",
+      "Store the archive URL and timestamp alongside the JSON result for traceability.",
+    ],
+    commonIssues: [
+      {
+        title: "Users expect raw Reddit API output",
+        description:
+          "Xarchive export is tied to archive lookup results, not a replacement for Reddit's live API responses.",
+      },
+      {
+        title: "JSON export lacks full visual context",
+        description:
+          "Pair JSON with HTML export when another reviewer also needs a more human-readable archive bundle.",
+      },
+      {
+        title: "Need exact provenance for later analysis",
+        description:
+          "Always keep the original URL, archive URL, and archive timestamp with the JSON file.",
+      },
+    ],
+    faq: [
+      {
+        question: "Why use JSON export for Reddit archives?",
+        answer:
+          "JSON is best when you want structured archive results for filtering, analysis, or ingestion into another tool.",
+      },
+      {
+        question: "Does JSON export preserve every Reddit comment?",
+        answer:
+          "Only what was captured publicly and surfaced by the archived page or archive record.",
+      },
+      {
+        question: "Should I export HTML too?",
+        answer:
+          "Yes, if another person needs a fast visual review path alongside the structured JSON result.",
+      },
+    ],
+    relatedSlugs: [
+      "archive-reddit-post",
+      "save-reddit-thread-offline",
+      "how-to-search-reddit-archives",
+      "wayback-machine-reddit",
+    ],
+    topic: "reddit",
+    keywords: [
+      "reddit json export",
+      "export reddit json",
+      "reddit archive json",
     ],
   },
 ];
@@ -854,6 +1379,43 @@ export function getGuidesBySlugs(slugs: string[]): GuideDefinition[] {
 
 export function getGuideBySlug(slug: string): GuideDefinition | undefined {
   return guideMap.get(slug);
+}
+
+export function getGuideTopic(guide: GuideDefinition): "twitter" | "instagram" | "reddit" {
+  return guide.topic ?? "twitter";
+}
+
+export function getGuideHub(guide: GuideDefinition): {
+  href: string;
+  label: string;
+} {
+  const topic = getGuideTopic(guide);
+
+  if (topic === "instagram") {
+    return {
+      href: "/guides/instagram-archives",
+      label: "Browse Instagram Guides Hub",
+    };
+  }
+
+  if (topic === "reddit") {
+    return {
+      href: "/guides/reddit-archives",
+      label: "Browse Reddit Guides Hub",
+    };
+  }
+
+  const isWaybackTwitterGuide = waybackTwitterGuideSlugs.includes(guide.slug);
+
+  return isWaybackTwitterGuide
+    ? {
+        href: "/guides/wayback-twitter",
+        label: "Browse Wayback Twitter Guides",
+      }
+    : {
+        href: "/guides/deleted-tweets",
+        label: "Browse Deleted Tweets Guides",
+      };
 }
 
 export function getRelatedGuides(guide: GuideDefinition): GuideDefinition[] {

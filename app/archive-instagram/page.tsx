@@ -3,10 +3,47 @@ import Script from "next/script";
 import Link from "next/link";
 
 import ArchiveInstagramTool from "@/components/archive-instagram-tool";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const pageTitle = "Free Instagram Archive Viewer & Downloader | Xarchive";
 const pageDescription =
   "Explore and download Instagram archive snapshots instantly. Xarchive lets you search, preview, and export Instagram data saved on the Wayback Machine in HTML, CSV, or JSON formats.";
+
+const bestUseCases = [
+  {
+    title: "Deleted post verification",
+    description: "Check whether a public Instagram post was captured before it disappeared.",
+    href: "/guides/view-deleted-instagram-posts",
+  },
+  {
+    title: "Profile history review",
+    description: "Map older profile and post history with archive timestamps instead of browsing captures manually.",
+    href: "/guides/find-old-instagram-posts",
+  },
+  {
+    title: "Wayback workflow",
+    description: "Use a repeatable Instagram archive method when a simple one-off lookup is not enough.",
+    href: "/guides/wayback-machine-instagram",
+  },
+];
+
+const topInstagramGuides = [
+  {
+    href: "/guides/how-to-search-instagram-archives",
+    title: "How to Search Instagram Archives",
+    description: "Best starting point for username and direct-URL Instagram archive lookups.",
+  },
+  {
+    href: "/guides/view-deleted-instagram-posts",
+    title: "View Deleted Instagram Posts",
+    description: "Verification flow for deleted post checks and timestamp comparison.",
+  },
+  {
+    href: "/guides/archive-instagram-posts",
+    title: "Archive Instagram Posts",
+    description: "Live capture plus archive lookup workflow for preserved Instagram pages.",
+  },
+];
 
 const faqEntries = [
   {
@@ -44,19 +81,112 @@ const faqJsonLd = {
   })),
 };
 
+const appJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Xarchive Instagram Archive Explorer",
+  applicationCategory: "UtilitiesApplication",
+  operatingSystem: "Any",
+  url: `${SITE_URL}/archive-instagram`,
+  description: pageDescription,
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+};
+
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to search Instagram archives with Xarchive",
+  description:
+    "Search public Wayback Machine captures for Instagram usernames and URLs, validate the best timestamps, and export the results.",
+  totalTime: "PT5M",
+  tool: [
+    {
+      "@type": "HowToTool",
+      name: "Xarchive Instagram Archive Explorer",
+    },
+  ],
+  step: [
+    {
+      "@type": "HowToStep",
+      name: "Choose the target",
+      text: "Start with a post URL when you have it, or use a username or profile URL for broader archive history.",
+      url: `${SITE_URL}/archive-instagram`,
+    },
+    {
+      "@type": "HowToStep",
+      name: "Search the archive",
+      text: "Run the query in Xarchive to surface matching Wayback Machine CDX records for the Instagram target.",
+      url: `${SITE_URL}/archive-instagram`,
+    },
+    {
+      "@type": "HowToStep",
+      name: "Filter by date",
+      text: "Use the date filters to narrow the result set to the period that matters.",
+      url: `${SITE_URL}/archive-instagram`,
+    },
+    {
+      "@type": "HowToStep",
+      name: "Compare nearby captures",
+      text: "Open the archive timestamps closest to the event and compare nearby captures before citing them.",
+      url: `${SITE_URL}/archive-instagram`,
+    },
+    {
+      "@type": "HowToStep",
+      name: "Export the archive set",
+      text: "Export the validated Instagram archive results in HTML, CSV, or JSON.",
+      url: `${SITE_URL}/archive-instagram`,
+    },
+  ],
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: SITE_URL,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Instagram Archive",
+      item: `${SITE_URL}/archive-instagram`,
+    },
+  ],
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://xarchive.net"),
+  metadataBase: new URL(SITE_URL),
   title: pageTitle,
   description: pageDescription,
+  keywords: [
+    "instagram archive",
+    "instagram archive viewer",
+    "wayback machine instagram",
+    "view deleted instagram posts",
+    "instagram archive downloader",
+  ],
   alternates: {
-    canonical: "https://xarchive.net/archive-instagram",
+    canonical: `${SITE_URL}/archive-instagram`,
   },
   openGraph: {
     title: pageTitle,
     description: pageDescription,
-    url: "https://xarchive.net/archive-instagram",
-    siteName: "Xarchive",
+    url: `${SITE_URL}/archive-instagram`,
+    siteName: SITE_NAME,
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: pageTitle,
+    description: pageDescription,
   },
 };
 
@@ -104,6 +234,40 @@ export default function InstagramArchivePage() {
 
         <div className="mx-auto max-w-5xl px-4 pt-16 pb-16 flex flex-col gap-10">
           <section className="space-y-4 rounded-lg border p-5">
+            <h2 className="text-2xl font-semibold">Start Here</h2>
+            <p className="text-muted-foreground">
+              Use the tool when you already have a username or direct Instagram URL. Use the guide cluster when you need a repeatable
+              workflow for deleted posts, older profile history, or a cleaner team handoff.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/guides/instagram-archives"
+                className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
+              >
+                Browse Instagram Guides
+              </Link>
+              <Link
+                href="/guides/how-to-search-instagram-archives"
+                className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted"
+              >
+                Start with Search Workflow
+              </Link>
+            </div>
+          </section>
+
+          <section className="space-y-4 rounded-lg border p-5">
+            <h2 className="text-2xl font-semibold">Best Use Cases</h2>
+            <div className="grid gap-3 md:grid-cols-3">
+              {bestUseCases.map((item) => (
+                <Link key={item.title} href={item.href} className="rounded-lg border p-4 hover:bg-muted/40">
+                  <h3 className="font-medium">{item.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-4 rounded-lg border p-5">
             <h2 className="text-2xl font-semibold">Also Research Twitter Archives?</h2>
             <p className="text-muted-foreground">
               This Instagram page is already one of the site&apos;s strongest entry points. If the visitor also
@@ -122,6 +286,18 @@ export default function InstagramArchivePage() {
               >
                 Wayback Twitter Workflow
               </Link>
+            </div>
+          </section>
+
+          <section className="space-y-4 rounded-lg border p-5">
+            <h2 className="text-2xl font-semibold">Top Related Guides</h2>
+            <div className="grid gap-3 md:grid-cols-3">
+              {topInstagramGuides.map((guide) => (
+                <Link key={guide.href} href={guide.href} className="rounded-lg border p-4 hover:bg-muted/40">
+                  <h3 className="font-medium">{guide.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{guide.description}</p>
+                </Link>
+              ))}
             </div>
           </section>
 
@@ -172,6 +348,21 @@ export default function InstagramArchivePage() {
         id="faq-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <Script
+        id="instagram-app-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }}
+      />
+      <Script
+        id="instagram-howto-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
+      <Script
+        id="instagram-breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
     </main>
   );

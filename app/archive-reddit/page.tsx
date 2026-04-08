@@ -77,6 +77,42 @@ const archivingMethods = [
   },
 ];
 
+const bestUseCases = [
+  {
+    title: "Archive a single Reddit post",
+    description: "Best when you need a clean URL-first workflow for one post or thread.",
+    href: "/guides/archive-reddit-post",
+  },
+  {
+    title: "Save a thread offline",
+    description: "Choose the right balance of offline readability, export structure, and archive validation.",
+    href: "/guides/save-reddit-thread-offline",
+  },
+  {
+    title: "Get machine-readable output",
+    description: "Use JSON-oriented workflows when downstream filtering or analysis matters more than layout.",
+    href: "/guides/reddit-json-export",
+  },
+];
+
+const topRedditGuides = [
+  {
+    href: "/guides/how-to-search-reddit-archives",
+    title: "How to Search Reddit Archives",
+    description: "Best starting point for subreddit, user, and direct-URL archive workflows.",
+  },
+  {
+    href: "/guides/archive-reddit-post",
+    title: "Archive Reddit Post",
+    description: "Live capture plus archive lookup workflow for individual Reddit posts.",
+  },
+  {
+    href: "/guides/reddit-json-export",
+    title: "Reddit JSON Export",
+    description: "Guide for structured Reddit archive output and provenance-friendly export.",
+  },
+];
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -234,6 +270,40 @@ export default function RedditArchivePage() {
 
         <div className="mx-auto max-w-5xl px-4 pb-16 flex flex-col gap-10">
           <section className="space-y-4 rounded-lg border p-5">
+            <h2 className="text-2xl font-semibold">Start Here</h2>
+            <p className="text-muted-foreground">
+              Use the tool when you already know the subreddit, user, or direct URL. Use the guides when you need a clearer
+              offline archiving workflow, better search-intent coverage, or a stronger evidence handoff path.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/guides/reddit-archives"
+                className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
+              >
+                Browse Reddit Guides
+              </Link>
+              <Link
+                href="/guides/how-to-search-reddit-archives"
+                className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted"
+              >
+                Start with Search Workflow
+              </Link>
+            </div>
+          </section>
+
+          <section className="space-y-4 rounded-lg border p-5">
+            <h2 className="text-2xl font-semibold">Best Use Cases</h2>
+            <div className="grid gap-3 md:grid-cols-3">
+              {bestUseCases.map((item) => (
+                <Link key={item.title} href={item.href} className="rounded-lg border p-4 hover:bg-muted/40">
+                  <h3 className="font-medium">{item.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-4 rounded-lg border p-5">
             <h2 className="text-2xl font-semibold">Choose the Right Reddit Search Mode</h2>
             <div className="grid gap-3 md:grid-cols-3">
               <article className="rounded-lg border p-4">
@@ -254,6 +324,18 @@ export default function RedditArchivePage() {
                   Best for verifying a specific Reddit post, comment, or profile page.
                 </p>
               </article>
+            </div>
+          </section>
+
+          <section className="space-y-4 rounded-lg border p-5">
+            <h2 className="text-2xl font-semibold">Top Related Guides</h2>
+            <div className="grid gap-3 md:grid-cols-3">
+              {topRedditGuides.map((guide) => (
+                <Link key={guide.href} href={guide.href} className="rounded-lg border p-4 hover:bg-muted/40">
+                  <h3 className="font-medium">{guide.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{guide.description}</p>
+                </Link>
+              ))}
             </div>
           </section>
 

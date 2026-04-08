@@ -3,7 +3,10 @@ import Link from "next/link";
 const footerLinks = [
   { href: "/guides", label: "Guides Library" },
   { href: "/guides/deleted-tweets", label: "Deleted Tweets Guides" },
+  { href: "/guides/instagram-archives", label: "Instagram Guides" },
+  { href: "/guides/reddit-archives", label: "Reddit Guides" },
   { href: "/archive-reddit", label: "Reddit Archive" },
+  { href: "/archive-instagram", label: "Instagram Archive" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
   { href: "/privacy", label: "Privacy Policy" },

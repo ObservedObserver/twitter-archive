@@ -142,6 +142,52 @@ export default function WaybackMachineRedditGuidePage() {
       </section>
 
       <section className="space-y-3">
+        <h2 className="text-xl font-semibold">Related Reddit Workflows</h2>
+        <div className="grid gap-3 md:grid-cols-2">
+          <article className="rounded-lg border p-4">
+            <h3 className="font-medium">
+              <Link href="/guides/how-to-search-reddit-archives" className="text-primary hover:underline">
+                How to Search Reddit Archives
+              </Link>
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Start here when you need the cleanest path from query choice to archive discovery.
+            </p>
+          </article>
+          <article className="rounded-lg border p-4">
+            <h3 className="font-medium">
+              <Link href="/guides/archive-reddit-post" className="text-primary hover:underline">
+                Archive Reddit Post
+              </Link>
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Use the single-post workflow when you already know the exact Reddit page you need to preserve.
+            </p>
+          </article>
+          <article className="rounded-lg border p-4">
+            <h3 className="font-medium">
+              <Link href="/guides/save-reddit-thread-offline" className="text-primary hover:underline">
+                Save Reddit Thread Offline
+              </Link>
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Best next step when offline readability or preservation packaging is the main concern.
+            </p>
+          </article>
+          <article className="rounded-lg border p-4">
+            <h3 className="font-medium">
+              <Link href="/guides/reddit-json-export" className="text-primary hover:underline">
+                Reddit JSON Export
+              </Link>
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Choose the JSON-first workflow when your downstream work is structured analysis or ingestion.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="space-y-3">
         <h2 className="text-xl font-semibold">FAQ</h2>
         <div className="space-y-3">
           {faqEntries.map((entry) => (
