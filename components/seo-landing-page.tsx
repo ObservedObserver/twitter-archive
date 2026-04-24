@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Script from "next/script";
 
+import { AdSlot } from "@/components/ad-slot";
 import { PageShell } from "@/components/page-shell";
 import { TrackedToolLink } from "@/components/tracked-tool-link";
 
@@ -118,6 +119,8 @@ export function SeoLandingPage({
         ))}
       </section>
 
+      <AdSlot label={`${title} content ad`} />
+
       <section className="space-y-3 rounded-lg border bg-muted/20 p-4">
         <h2 className="text-xl font-semibold">Data Source and Limits</h2>
         <p className="text-sm text-muted-foreground">
@@ -166,4 +169,3 @@ export function SeoLandingPage({
     </PageShell>
   );
 }
-

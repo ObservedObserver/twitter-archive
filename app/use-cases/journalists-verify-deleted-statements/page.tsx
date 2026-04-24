@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { AdSlot } from "@/components/ad-slot";
 import { PageShell } from "@/components/page-shell";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -86,6 +87,8 @@ export default function JournalistsVerifyDeletedStatementsPage() {
           ))}
         </div>
       </section>
+
+      <AdSlot label="Journalist verification content ad" />
 
       <section className="space-y-3 rounded-lg border bg-muted/20 p-4">
         <h2 className="text-xl font-semibold">Data Source and Limitations</h2>

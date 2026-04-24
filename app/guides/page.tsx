@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { AdSlot } from "@/components/ad-slot";
 import { PageShell } from "@/components/page-shell";
 import {
   deletedTweetsGuideSlugs,
@@ -117,6 +118,8 @@ export default function GuidesIndexPage() {
           ).
         </p>
       </section>
+
+      <AdSlot label="Guides library content ad" />
 
       {sections.map((section) => (
         <section key={section.title} className="space-y-4">

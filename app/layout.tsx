@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ShareCard } from "@/components/share-card";
 import "./globals.css";
+
+const adsEnabled =
+  process.env.NEXT_PUBLIC_ADS_ENABLED === "true" && process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +43,15 @@ export default function RootLayout({
         {children}
         <ShareCard />
         <SiteFooter />
+        {adsEnabled ? (
+          <Script
+            id="adsense-script"
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT}`}
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+          />
+        ) : null}
         <Analytics />
       </body>
     </html>

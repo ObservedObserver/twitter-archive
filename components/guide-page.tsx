@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Script from "next/script";
 
+import { AdSlot } from "@/components/ad-slot";
 import { PageShell } from "@/components/page-shell";
 import { TrackedToolLink } from "@/components/tracked-tool-link";
 import {
@@ -150,6 +151,8 @@ export function GuidePage({ guide, relatedGuides }: GuidePageProps) {
           ))}
         </div>
       </section>
+
+      <AdSlot label={`${guide.title} content ad`} />
 
       <section className="space-y-3 rounded-lg border bg-muted/20 p-4">
         <h2 className="text-xl font-semibold">Data Source and Limitations</h2>
