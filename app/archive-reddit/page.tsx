@@ -5,9 +5,9 @@ import Link from "next/link";
 import ArchiveRedditTool from "@/components/archive-reddit-tool";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
-const pageTitle = "Reddit Archive Viewer, Thread Saver & Offline Export Tool | Xarchive";
+const pageTitle = "Reddit Archive Search, Viewer & Offline Export Tool | Xarchive";
 const pageDescription =
-  "Search Reddit archive snapshots by subreddit, user page, or URL, then export captures in HTML, CSV, or JSON. Learn the best ways to archive Reddit posts and threads for offline viewing.";
+  "Search Reddit archive snapshots by subreddit, user page, or direct URL, then export public Wayback Machine captures in HTML, CSV, or JSON.";
 
 const faqEntries = [
   {
@@ -219,7 +219,9 @@ export const metadata: Metadata = {
   description: pageDescription,
   keywords: [
     "reddit archive",
+    "reddit archive search",
     "reddit archive viewer",
+    "reddit archive deleted posts",
     "archive reddit post",
     "archive reddit thread",
     "save reddit post offline",

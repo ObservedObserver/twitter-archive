@@ -7,7 +7,7 @@ import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const pageTitle = "Free Instagram Archive Viewer & Downloader | Xarchive";
 const pageDescription =
-  "Explore and download Instagram archive snapshots instantly. Xarchive lets you search, preview, and export Instagram data saved on the Wayback Machine in HTML, CSV, or JSON formats.";
+  "Explore public Instagram archive snapshots from the Wayback Machine. Xarchive lets you search, preview, and export archived Instagram profile and post captures in HTML, CSV, or JSON.";
 
 const bestUseCases = [
   {
@@ -168,8 +168,10 @@ export const metadata: Metadata = {
   description: pageDescription,
   keywords: [
     "instagram archive",
+    "public instagram archive",
     "instagram archive viewer",
     "wayback machine instagram",
+    "deleted instagram posts",
     "view deleted instagram posts",
     "instagram archive downloader",
   ],
@@ -304,7 +306,7 @@ export default function InstagramArchivePage() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">How to Search Instagram Archives</h2>
             <p className="text-muted-foreground">
-              Searching through Instagram archive data is simple with Xarchive. Enter any Instagram username in the search box above, and our tool will scan the Wayback Machine for all available snapshots. You can filter results by date range to find specific Instagram archive entries from any time period, making it easy to recover historical posts, stories, and profiles.
+              Searching public Instagram archive data is simple with Xarchive. Enter an Instagram username in the search box above, and the tool will scan Wayback Machine records for available public snapshots. This is different from Instagram&apos;s private in-app Archive feature: Xarchive only works with public web captures that already exist.
             </p>
           </section>
 

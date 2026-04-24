@@ -9,6 +9,7 @@ export function SiteHeader() {
   const links = [
     { href: "/", label: "Twitter Archive" },
     { href: "/archive-reddit", label: "Reddit Archive" },
+    { href: "/deleted-tweets", label: "Deleted Tweets" },
     { href: "/guides", label: "Guides" },
     { href: "/archive-instagram", label: "Instagram Archive" },
   ];
@@ -16,12 +17,12 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-14 max-w-5xl items-center px-4">
-        <div className="mr-4 flex">
+        <div className="mr-4 flex shrink-0">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <span className="font-bold text-xl">Xarchive</span>
           </Link>
         </div>
-        <nav className="flex items-center space-x-6 text-sm font-medium">
+        <nav className="flex min-w-0 items-center gap-5 overflow-x-auto whitespace-nowrap text-sm font-medium">
           {links.map((link) => {
             const isActive =
               pathname === link.href ||

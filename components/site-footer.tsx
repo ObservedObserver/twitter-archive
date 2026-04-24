@@ -1,6 +1,11 @@
 import Link from "next/link";
 
 const footerLinks = [
+  { href: "/deleted-tweets", label: "Deleted Tweets" },
+  { href: "/twitter-archive-search", label: "Twitter Archive Search" },
+  { href: "/reddit-archive-search", label: "Reddit Archive Search" },
+  { href: "/reddit-archive-deleted-posts", label: "Reddit Deleted Posts" },
+  { href: "/deleted-instagram-posts", label: "Deleted Instagram Posts" },
   { href: "/guides", label: "Guides Library" },
   { href: "/guides/deleted-tweets", label: "Deleted Tweets Guides" },
   { href: "/guides/instagram-archives", label: "Instagram Guides" },
