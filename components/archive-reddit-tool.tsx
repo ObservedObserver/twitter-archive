@@ -17,6 +17,8 @@ import {
 import { HtmlTabDisplay } from "@/components/tabs/html-tab-display";
 import { CsvTabDisplay } from "@/components/tabs/csv-tab-display";
 import { JsonTabDisplay } from "@/components/tabs/json-tab-display";
+import { PaidFeatureCards } from "@/components/paid-feature-card";
+import { trackToolEvent } from "@/lib/analytics";
 
 type TargetType = "subreddit" | "user" | "url";
 type TabKey = "HTML" | "CSV" | "JSON";
@@ -163,6 +165,11 @@ export default function ArchiveRedditTool() {
       return;
     }
 
+    trackToolEvent("tool_search_submit", "reddit_tool", {
+      target_type: form.targetType,
+      unique: form.unique,
+      has_limit: Boolean(form.limit.trim()),
+    });
     setLoading(true);
     setError(null);
     setResponse(null);
@@ -191,9 +198,17 @@ export default function ArchiveRedditTool() {
       const payload = (await res.json()) as ApiResponse;
       setResponse(payload);
       setActiveTab("HTML");
+      trackToolEvent(payload.meta.total > 0 ? "tool_search_success" : "tool_search_empty", "reddit_tool", {
+        target_type: payload.meta.targetType,
+        total: payload.meta.total,
+      });
     } catch (err) {
       const message = err instanceof Error ? err.message : "Unexpected error.";
       setError(message);
+      trackToolEvent("tool_search_error", "reddit_tool", {
+        target_type: form.targetType,
+        message,
+      });
     } finally {
       setLoading(false);
     }
@@ -201,6 +216,11 @@ export default function ArchiveRedditTool() {
 
   const handleDownload = (type: "html" | "csv" | "json") => {
     if (!response) return;
+    trackToolEvent("export_click", "reddit_tool", {
+      format: type,
+      target_type: response.meta.targetType,
+      total: response.meta.total,
+    });
 
     const extensionMap: Record<typeof type, string> = {
       html: "html",
@@ -454,6 +474,8 @@ export default function ArchiveRedditTool() {
               />
             )}
           </div>
+
+          <PaidFeatureCards surface="reddit_tool" />
         </section>
       )}
     </>

@@ -4,6 +4,7 @@ import { FIELD_OPTIONS } from "@/lib/archive/constants";
 import { buildExportBundle } from "@/lib/archive/exporter";
 import { parseArchiveResponse } from "@/lib/archive/parser";
 import { fetchArchiveCdx } from "@/lib/archive/service";
+import { trackServerEvent } from "@/lib/server-analytics";
 
 interface ArchiveRequestBody {
   username?: string;
@@ -41,6 +42,11 @@ export async function POST(request: Request) {
 
     const parsed = await parseArchiveResponse(archiveResponse, username, FIELD_OPTIONS);
     const bundle = buildExportBundle(parsed, FIELD_OPTIONS);
+    await trackServerEvent(request, bundle.total > 0 ? "tool_search_success_server" : "tool_search_empty_server", {
+      surface: "twitter_tool",
+      total: bundle.total,
+      unique: Boolean(body.unique),
+    });
 
     return NextResponse.json({
       data: bundle.tweets,
@@ -61,6 +67,10 @@ export async function POST(request: Request) {
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Unexpected error retrieving archived tweets.";
+    await trackServerEvent(request, "tool_search_error_server", {
+      surface: "twitter_tool",
+      message,
+    });
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

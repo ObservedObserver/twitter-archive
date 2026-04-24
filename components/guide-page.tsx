@@ -2,6 +2,7 @@ import Link from "next/link";
 import Script from "next/script";
 
 import { PageShell } from "@/components/page-shell";
+import { TrackedToolLink } from "@/components/tracked-tool-link";
 import {
   type GuideDefinition,
   getGuideHub,
@@ -29,6 +30,8 @@ export function GuidePage({ guide, relatedGuides }: GuidePageProps) {
       : topic === "reddit"
         ? "Open Reddit Archive Tool"
         : "Open Twitter Archive Tool";
+  const toolName =
+    topic === "instagram" ? "instagram" : topic === "reddit" ? "reddit" : "twitter";
   const canonicalUrl = `${SITE_URL}/guides/${guide.slug}`;
 
   const faqJsonLd = {
@@ -110,12 +113,14 @@ export function GuidePage({ guide, relatedGuides }: GuidePageProps) {
           failure cases, and the next pages to read.
         </p>
         <div className="flex flex-wrap gap-3">
-          <Link
+          <TrackedToolLink
             href={toolHref}
+            source={guide.slug}
+            tool={toolName}
             className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
             {toolLabel}
-          </Link>
+          </TrackedToolLink>
           <Link
             href={hub.href}
             className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted"
@@ -170,12 +175,14 @@ export function GuidePage({ guide, relatedGuides }: GuidePageProps) {
           archive URL, and timestamp together so the evidence bundle is easy to reuse later.
         </p>
         <div className="flex flex-wrap gap-3">
-          <Link
+          <TrackedToolLink
             href={toolHref}
+            source={guide.slug}
+            tool={toolName}
             className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
             {toolLabel}
-          </Link>
+          </TrackedToolLink>
           <Link
             href={hub.href}
             className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted"

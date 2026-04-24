@@ -5,6 +5,7 @@ import { buildExportBundle } from "@/lib/archive/exporter";
 import { parseRedditArchiveResponse } from "@/lib/archive/parser-reddit";
 import { fetchRedditArchiveCdx } from "@/lib/archive/service-reddit";
 import type { RedditTargetType } from "@/lib/archive/types";
+import { trackServerEvent } from "@/lib/server-analytics";
 
 interface ArchiveRedditRequestBody {
   target?: string;
@@ -70,6 +71,12 @@ export async function POST(request: Request) {
       "reddit",
       `Archived Reddit captures for ${displayTarget}`
     );
+    await trackServerEvent(request, bundle.total > 0 ? "tool_search_success_server" : "tool_search_empty_server", {
+      surface: "reddit_tool",
+      target_type: targetType,
+      total: bundle.total,
+      unique: Boolean(body.unique),
+    });
 
     return NextResponse.json({
       data: bundle.tweets,
@@ -91,6 +98,10 @@ export async function POST(request: Request) {
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Unexpected error retrieving archived Reddit captures.";
+    await trackServerEvent(request, "tool_search_error_server", {
+      surface: "reddit_tool",
+      message,
+    });
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

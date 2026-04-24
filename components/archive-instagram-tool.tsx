@@ -10,6 +10,8 @@ import { Label } from "@/components/ui/label";
 import { HtmlTabDisplay } from "@/components/tabs/html-tab-display";
 import { CsvTabDisplay } from "@/components/tabs/csv-tab-display";
 import { JsonTabDisplay } from "@/components/tabs/json-tab-display";
+import { PaidFeatureCards } from "@/components/paid-feature-card";
+import { trackToolEvent } from "@/lib/analytics";
 
 
 
@@ -123,6 +125,10 @@ export default function ArchiveInstagramTool() {
       return;
     }
 
+    trackToolEvent("tool_search_submit", "instagram_tool", {
+      unique: form.unique,
+      has_limit: Boolean(form.limit.trim()),
+    });
     setLoading(true);
     setError(null);
     setResponse(null);
@@ -150,9 +156,15 @@ export default function ArchiveInstagramTool() {
       const payload = (await res.json()) as ApiResponse;
       setResponse(payload);
       setActiveTab("HTML");
+      trackToolEvent(payload.meta.total > 0 ? "tool_search_success" : "tool_search_empty", "instagram_tool", {
+        total: payload.meta.total,
+      });
     } catch (err) {
       const message = err instanceof Error ? err.message : "Unexpected error.";
       setError(message);
+      trackToolEvent("tool_search_error", "instagram_tool", {
+        message,
+      });
     } finally {
       setLoading(false);
     }
@@ -160,6 +172,10 @@ export default function ArchiveInstagramTool() {
 
   const handleDownload = (type: "html" | "csv" | "json") => {
     if (!response) return;
+    trackToolEvent("export_click", "instagram_tool", {
+      format: type,
+      total: response.meta.total,
+    });
 
     const extensionMap: Record<typeof type, string> = {
       html: "html",
@@ -368,9 +384,10 @@ export default function ArchiveInstagramTool() {
               />
             )}
           </div>
+
+          <PaidFeatureCards surface="instagram_tool" />
         </section>
       )}
     </>
   );
 }
-
