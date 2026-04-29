@@ -191,8 +191,11 @@ export default function ArchiveRedditTool() {
       });
 
       if (!res.ok) {
-        const payload = (await res.json()) as { error?: string };
-        throw new Error(payload.error ?? "An unexpected error occurred.");
+        const payload = (await res.json()) as { error?: string; errorCategory?: string };
+        throw new ToolSearchError(
+          payload.error ?? "An unexpected error occurred.",
+          payload.errorCategory ?? "unknown"
+        );
       }
 
       const payload = (await res.json()) as ApiResponse;
@@ -207,7 +210,7 @@ export default function ArchiveRedditTool() {
       setError(message);
       trackToolEvent("tool_search_error", "reddit_tool", {
         target_type: form.targetType,
-        message,
+        error_category: err instanceof ToolSearchError ? err.category : "unknown",
       });
     } finally {
       setLoading(false);
@@ -480,4 +483,14 @@ export default function ArchiveRedditTool() {
       )}
     </>
   );
+}
+
+class ToolSearchError extends Error {
+  constructor(
+    message: string,
+    readonly category: string
+  ) {
+    super(message);
+    this.name = "ToolSearchError";
+  }
 }

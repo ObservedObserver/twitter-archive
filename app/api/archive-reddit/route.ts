@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { REDDIT_FIELD_OPTIONS } from "@/lib/archive/constants";
+import { ArchiveRouteError, getArchiveErrorDetails } from "@/lib/archive/errors";
 import { buildExportBundle } from "@/lib/archive/exporter";
 import { parseRedditArchiveResponse } from "@/lib/archive/parser-reddit";
 import { fetchRedditArchiveCdx } from "@/lib/archive/service-reddit";
@@ -24,16 +25,16 @@ export async function POST(request: Request) {
     const targetType = body.targetType ?? "subreddit";
 
     if (!target) {
-      return NextResponse.json({ error: "Target is required." }, { status: 400 });
+      throw new ArchiveRouteError("Target is required.", "invalid_request", 400);
     }
 
     if (!["subreddit", "user", "url"].includes(targetType)) {
-      return NextResponse.json({ error: "Target type is invalid." }, { status: 400 });
+      throw new ArchiveRouteError("Target type is invalid.", "invalid_request", 400);
     }
 
     const limit = body.limit ? Number(body.limit) : undefined;
     if (Number.isNaN(limit as number)) {
-      return NextResponse.json({ error: "Limit must be a number." }, { status: 400 });
+      throw new ArchiveRouteError("Limit must be a number.", "invalid_request", 400);
     }
 
     const archiveResponse = await fetchRedditArchiveCdx({
@@ -96,12 +97,22 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Unexpected error retrieving archived Reddit captures.";
-    await trackServerEvent(request, "tool_search_error_server", {
+    const details = getArchiveErrorDetails(error);
+    const eventName =
+      details.category === "invalid_request"
+        ? "tool_search_invalid_request_server"
+        : "tool_search_error_server";
+    await trackServerEvent(request, eventName, {
       surface: "reddit_tool",
-      message,
+      error_category: details.category,
+      status_code: details.statusCode,
     });
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: details.message,
+        errorCategory: details.category,
+      },
+      { status: details.statusCode }
+    );
   }
 }

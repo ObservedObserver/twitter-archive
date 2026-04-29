@@ -17,7 +17,13 @@ export async function parseInstagramArchiveResponse(
 ): Promise<ParsedInstagramPostsResult> {
   const [header, ...rows] = payload.rows;
   if (!header || rows.length === 0) {
-    throw new Error("No archived Instagram posts found for this query.");
+    return {
+      tweets: [],
+      total: 0,
+      username,
+      showResumeKey: payload.showResumeKey,
+      resumptionKey: null,
+    };
   }
 
   let resumptionKey: string | null = null;
@@ -111,4 +117,3 @@ function safeDecodeURIComponent(value: string): string {
     return value;
   }
 }
-

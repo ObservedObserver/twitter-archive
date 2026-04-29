@@ -149,8 +149,11 @@ export default function ArchiveInstagramTool() {
       });
 
       if (!res.ok) {
-        const payload = (await res.json()) as { error?: string };
-        throw new Error(payload.error ?? "An unexpected error occurred.");
+        const payload = (await res.json()) as { error?: string; errorCategory?: string };
+        throw new ToolSearchError(
+          payload.error ?? "An unexpected error occurred.",
+          payload.errorCategory ?? "unknown"
+        );
       }
 
       const payload = (await res.json()) as ApiResponse;
@@ -163,7 +166,7 @@ export default function ArchiveInstagramTool() {
       const message = err instanceof Error ? err.message : "Unexpected error.";
       setError(message);
       trackToolEvent("tool_search_error", "instagram_tool", {
-        message,
+        error_category: err instanceof ToolSearchError ? err.category : "unknown",
       });
     } finally {
       setLoading(false);
@@ -390,4 +393,14 @@ export default function ArchiveInstagramTool() {
       )}
     </>
   );
+}
+
+class ToolSearchError extends Error {
+  constructor(
+    message: string,
+    readonly category: string
+  ) {
+    super(message);
+    this.name = "ToolSearchError";
+  }
 }

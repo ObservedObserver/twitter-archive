@@ -1,8 +1,7 @@
-import { DEFAULT_USER_AGENT } from "./constants";
+import { buildEmptyCdxRows, fetchArchiveCdxJson } from "./cdx";
+import { ArchiveRouteError } from "./errors";
 import type { ArchiveFetchResult, RedditTargetType } from "./types";
 import { normalizeArchiveDate } from "./utils";
-
-const ARCHIVE_CDX_ENDPOINT = "https://web.archive.org/cdx/search/cdx";
 
 type RedditArchiveQueryOptions = {
   target: string;
@@ -12,10 +11,6 @@ type RedditArchiveQueryOptions = {
   timestampTo?: string | null;
   limit?: number | null;
   resumptionKey?: string | null;
-};
-
-type ArchiveApiError = {
-  error: string;
 };
 
 export async function fetchRedditArchiveCdx(
@@ -54,22 +49,14 @@ export async function fetchRedditArchiveCdx(
   const showResumeKey = Boolean(limit && limit > 0);
   if (showResumeKey) params.set("showResumeKey", "true");
 
-  const response = await fetch(`${ARCHIVE_CDX_ENDPOINT}?${params.toString()}`, {
-    headers: {
-      "User-Agent": DEFAULT_USER_AGENT,
-      Accept: "application/json",
-    },
-    cache: "no-store",
-  });
+  const json = await fetchArchiveCdxJson(params);
 
-  if (!response.ok) {
-    throw new Error(`Archive service responded with ${response.status}`);
-  }
-
-  const json = (await response.json()) as ArchiveApiError | unknown[];
-
-  if (!Array.isArray(json) || json.length === 0) {
-    throw new Error(`No archived Reddit captures found for ${formatTargetLabel(normalizedTarget, targetType)}.`);
+  if (json.length === 0) {
+    return {
+      rows: buildEmptyCdxRows(),
+      showResumeKey,
+      normalizedTarget,
+    };
   }
 
   return {
@@ -93,7 +80,7 @@ function buildRedditUrl(target: string, targetType: RedditTargetType): string {
 function normalizeRedditTarget(target: string, targetType: RedditTargetType): string {
   const trimmed = target.trim();
   if (!trimmed) {
-    throw new Error("Target is required.");
+    throw new ArchiveRouteError("Target is required.", "invalid_request", 400);
   }
 
   if (targetType === "url") {
@@ -109,7 +96,7 @@ function normalizeRedditTarget(target: string, targetType: RedditTargetType): st
   if (targetType === "subreddit") {
     const subreddit = pieces[0]?.toLowerCase() === "r" ? pieces[1] : pieces[0];
     if (!subreddit) {
-      throw new Error("Subreddit name is required.");
+      throw new ArchiveRouteError("Subreddit name is required.", "invalid_request", 400);
     }
     return subreddit;
   }
@@ -118,7 +105,7 @@ function normalizeRedditTarget(target: string, targetType: RedditTargetType): st
     ? pieces[1]
     : pieces[0];
   if (!username) {
-    throw new Error("Username is required.");
+    throw new ArchiveRouteError("Username is required.", "invalid_request", 400);
   }
   return username.replace(/^@/, "");
 }
@@ -129,11 +116,11 @@ function normalizeRedditUrl(value: string): string {
   try {
     url = new URL(candidate);
   } catch {
-    throw new Error("Provide a valid Reddit URL.");
+    throw new ArchiveRouteError("Provide a valid Reddit URL.", "invalid_request", 400);
   }
 
   if (!/(^|\.)reddit\.com$/i.test(url.hostname)) {
-    throw new Error("Only reddit.com URLs are supported.");
+    throw new ArchiveRouteError("Only reddit.com URLs are supported.", "invalid_request", 400);
   }
 
   url.protocol = "https:";
@@ -145,10 +132,4 @@ function normalizeRedditUrl(value: string): string {
   url.pathname = normalizedPath;
 
   return url.toString();
-}
-
-function formatTargetLabel(target: string, targetType: RedditTargetType): string {
-  if (targetType === "subreddit") return `r/${target}`;
-  if (targetType === "user") return `u/${target}`;
-  return target;
 }

@@ -1,12 +1,6 @@
-import { DEFAULT_USER_AGENT } from "./constants";
+import { buildEmptyCdxRows, fetchArchiveCdxJson } from "./cdx";
 import type { ArchiveFetchResult, ArchiveQueryOptions } from "./types";
 import { normalizeArchiveDate } from "./utils";
-
-const ARCHIVE_CDX_ENDPOINT = "https://web.archive.org/cdx/search/cdx";
-
-type ArchiveApiError = {
-  error: string;
-};
 
 export async function fetchArchiveCdx(
   options: ArchiveQueryOptions
@@ -38,22 +32,13 @@ export async function fetchArchiveCdx(
   const showResumeKey = Boolean(limit && limit > 0);
   if (showResumeKey) params.set("showResumeKey", "true");
 
-  const response = await fetch(`${ARCHIVE_CDX_ENDPOINT}?${params.toString()}`, {
-    headers: {
-      "User-Agent": DEFAULT_USER_AGENT,
-      Accept: "application/json",
-    },
-    cache: "no-store",
-  });
+  const json = await fetchArchiveCdxJson(params);
 
-  if (!response.ok) {
-    throw new Error(`Archive service responded with ${response.status}`);
-  }
-
-  const json = (await response.json()) as ArchiveApiError | unknown[];
-
-  if (!Array.isArray(json) || json.length === 0) {
-    throw new Error("No data returned by the archive service.");
+  if (json.length === 0) {
+    return {
+      rows: buildEmptyCdxRows(),
+      showResumeKey,
+    };
   }
 
   return {

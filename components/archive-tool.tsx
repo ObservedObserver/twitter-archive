@@ -152,8 +152,11 @@ export default function ArchiveTool() {
       });
 
       if (!res.ok) {
-        const payload = (await res.json()) as { error?: string };
-        throw new Error(payload.error ?? "An unexpected error occurred.");
+        const payload = (await res.json()) as { error?: string; errorCategory?: string };
+        throw new ToolSearchError(
+          payload.error ?? "An unexpected error occurred.",
+          payload.errorCategory ?? "unknown"
+        );
       }
 
       const payload = (await res.json()) as ApiResponse;
@@ -166,7 +169,7 @@ export default function ArchiveTool() {
       const message = err instanceof Error ? err.message : "Unexpected error.";
       setError(message);
       trackToolEvent("tool_search_error", "twitter_tool", {
-        message,
+        error_category: err instanceof ToolSearchError ? err.category : "unknown",
       });
     } finally {
       setLoading(false);
@@ -400,4 +403,14 @@ export default function ArchiveTool() {
       )}
     </>
   );
+}
+
+class ToolSearchError extends Error {
+  constructor(
+    message: string,
+    readonly category: string
+  ) {
+    super(message);
+    this.name = "ToolSearchError";
+  }
 }

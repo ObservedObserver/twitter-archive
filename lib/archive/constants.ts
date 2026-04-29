@@ -60,3 +60,15 @@ export type RedditFieldOption = (typeof REDDIT_FIELD_OPTIONS)[number];
 
 export const DEFAULT_USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36";
+
+export const ARCHIVE_FETCH_TIMEOUT_MS = 15000;
+
+export const CDX_FIELD_HEADER = [
+  "urlkey",
+  "timestamp",
+  "original",
+  "mimetype",
+  "statuscode",
+  "digest",
+  "length",
+] as const;

@@ -16,7 +16,14 @@ export async function parseRedditArchiveResponse(
 ): Promise<ParsedRedditCapturesResult> {
   const [header, ...rows] = payload.rows;
   if (!header || rows.length === 0) {
-    throw new Error("No archived Reddit captures found for this query.");
+    return {
+      tweets: [],
+      total: 0,
+      target,
+      targetType,
+      showResumeKey: payload.showResumeKey,
+      resumptionKey: null,
+    };
   }
 
   let resumptionKey: string | null = null;
@@ -41,7 +48,14 @@ export async function parseRedditArchiveResponse(
   }).filter((capture) => matchesTarget(capture, target, targetType));
 
   if (captures.length === 0) {
-    throw new Error("No archived Reddit captures matched the requested target.");
+    return {
+      tweets: [],
+      total: 0,
+      target,
+      targetType,
+      showResumeKey: payload.showResumeKey,
+      resumptionKey,
+    };
   }
 
   return {

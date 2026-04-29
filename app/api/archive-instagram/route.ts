@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { INSTAGRAM_FIELD_OPTIONS } from "@/lib/archive/constants";
+import { ArchiveRouteError, getArchiveErrorDetails } from "@/lib/archive/errors";
 import { buildExportBundle } from "@/lib/archive/exporter";
 import { parseInstagramArchiveResponse } from "@/lib/archive/parser-instagram";
 import { fetchInstagramArchiveCdx } from "@/lib/archive/service-instagram";
@@ -20,12 +21,12 @@ export async function POST(request: Request) {
 
     const username = (body.username ?? "").trim();
     if (!username) {
-      return NextResponse.json({ error: "Username is required." }, { status: 400 });
+      throw new ArchiveRouteError("Username is required.", "invalid_request", 400);
     }
 
     const limit = body.limit ? Number(body.limit) : undefined;
     if (Number.isNaN(limit as number)) {
-      return NextResponse.json({ error: "Limit must be a number." }, { status: 400 });
+      throw new ArchiveRouteError("Limit must be a number.", "invalid_request", 400);
     }
 
     const collapse = body.unique ? "urlkey" : null;
@@ -65,12 +66,22 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Unexpected error retrieving archived Instagram posts.";
-    await trackServerEvent(request, "tool_search_error_server", {
+    const details = getArchiveErrorDetails(error);
+    const eventName =
+      details.category === "invalid_request"
+        ? "tool_search_invalid_request_server"
+        : "tool_search_error_server";
+    await trackServerEvent(request, eventName, {
       surface: "instagram_tool",
-      message,
+      error_category: details.category,
+      status_code: details.statusCode,
     });
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: details.message,
+        errorCategory: details.category,
+      },
+      { status: details.statusCode }
+    );
   }
 }

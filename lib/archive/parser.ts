@@ -28,7 +28,13 @@ export async function parseArchiveResponse(
 ): Promise<ParsedTweetsResult> {
   const [header, ...rows] = payload.rows;
   if (!header || rows.length === 0) {
-    throw new Error("No archived tweets found for this query.");
+    return {
+      tweets: [],
+      total: 0,
+      username,
+      showResumeKey: payload.showResumeKey,
+      resumptionKey: null,
+    };
   }
 
   let resumptionKey: string | null = null;
@@ -161,4 +167,3 @@ async function mapWithConcurrency<T, R>(
   await Promise.all(workers);
   return results;
 }
-
